@@ -16,76 +16,46 @@
                         <div class="row align-items-center">
                             <div class="col-lg-6 col-md-6">
                                 <div class="productQuickView-image">
-                                    <img src="../../assets/img/quick-view-img.jpg" alt="image">
+                                    <img :src="product.photos[0]" alt="image">
                                 </div>
                             </div>
 
                             <div class="col-lg-6 col-md-6">
                                 <div class="product-content">
-                                    <h3><a href="#">Neck empire sleeve t-shirts</a></h3>
-
+                                    <h3><nuxt-link :to="`/products-details/${product.id}`">{{ product.title }}</nuxt-link></h3>
                                     <div class="price">
-                                        <span class="new-price">$191.00</span>
+                                        <span class="new-price">{{product.price}}€</span>
                                     </div>
-
                                     <div class="product-review">
-                                        <div class="rating">
+                                        <!-- <div class="rating">
                                             <i class="fas fa-star"></i>
                                             <i class="fas fa-star"></i>
                                             <i class="fas fa-star"></i>
                                             <i class="fas fa-star"></i>
                                             <i class="fas fa-star-half-alt"></i>
-                                        </div>
-                                        <a href="#" class="rating-count">3 reviews</a>
+                                        </div> -->
+                                        <span href="#" class="rating-count">3 Commentaire(s)</span>
                                     </div>
-
                                     <ul class="product-info">
-                                        <li><span>Vendor:</span> <a href="#">Lereve</a></li>
-                                        <li><span>Availability:</span> <a href="#">In stock (7 items)</a></li>
-                                        <li><span>Product Type:</span> <a href="#">T-Shirt</a></li>
+                                        <li><span>Propiétaire:</span> {{ product.first_name }} {{product.last_name}}</li>
+                                        <li><span>Type:</span> {{product.type}}</li>
+                                        <li><span>Nombre de couchage:</span> {{product.nbr_couchage}}</li>
+                                        <li><span>Capacité:</span> {{product.capacity}}</li>
                                     </ul>
-
-                                    <div class="product-color-switch">
-                                        <h4>Color:</h4>
-
-                                        <ul>
-                                            <li><a href="#" title="Black" class="color-black"></a></li>
-                                            <li><a href="#" title="White" class="color-white"></a></li>
-                                            <li class="active"><a href="#" title="Green" class="color-green"></a></li>
-                                            <li><a href="#" title="Yellow Green" class="color-yellowgreen"></a></li>
-                                            <li><a href="#" title="Teal" class="color-teal"></a></li>
-                                        </ul>
+                                    <div class="product-color-switch mb-5">
                                     </div>
-
-                                    <div class="product-size-wrapper">
-                                        <h4>Size:</h4>
-
-                                        <ul>
-                                            <li><a href="#">XS</a></li>
-                                            <li class="active"><a href="#">S</a></li>
-                                            <li><a href="#">M</a></li>
-                                            <li><a href="#">XL</a></li>
-                                            <li><a href="#">XXL</a></li>
-                                        </ul>
+                                    <div class="product-size-wrapper mb-5">
                                     </div>
-
                                     <div class="product-add-to-cart">
-                                        <div class="input-counter">
-                                            <span @click="decreaseQuantity()" class="minus-btn"><i class="fas fa-minus"></i></span>
-                                                {{quantity}}
-                                            <span @click="increaseQuantity()" class="plus-btn"><i class="fas fa-plus"></i></span>
-                                        </div>
-
                                         <button 
                                             type="submit" 
                                             class="btn btn-primary"
-                                            @click="addToCart(item)"
+                                            @click="addToCart(product)"
                                         >
-                                            <i class="fas fa-cart-plus"></i> Add to Cart
+                                            <i class="fas fa-cart-plus"></i> Ajouter au panier
                                         </button>
                                     </div>
-
-                                    <a href="#" class="view-full-info">View full info</a>
+                                    <nuxt-link :to="`/products-details/${product.id}`" class="view-full-info">Voir plus</nuxt-link>
                                 </div>
                             </div>
                         </div>
@@ -101,23 +71,15 @@
 import { store, mutations } from '../../utils/sidebar-util';
 export default {
     name: 'QuckView',
+    props:{
+        product:{
+            type: Object,
+            default: () => ({}),
+        }
+    },
     data() {
         return{
             quantity: 1,
-            item: {
-                id: 4,
-                name: 'Criss-cross V neck bodycon',
-                price: 200.00,
-                offer: false,
-                offerPrice: 7,
-                latest: true,
-                bestSellers: false,
-                trending: false,
-                image: require('../../assets/img/img4.jpg'),
-                imageHover: require('../../assets/img/img-hover4.jpg'),
-                timePeriod: false,
-                dateTime: new Date("December 19, 2020 17:00:00 PDT")
-            }
         }
     },
     methods: {
@@ -125,9 +87,9 @@ export default {
         addToCart(item){
             const product = [{
                 id: item.id,
-                name: item.name,
+                title: item.title,
                 price: item.price,
-                image: item.image,
+                photos: item.photos,
                 quantity: this.quantity
             }]
 
@@ -140,41 +102,23 @@ export default {
 
                 if(cartIndex == -1){
                     this.$store.dispatch('addToCart', product);
-                    this.$toast("Added to cart", {
+                    this.$toast("Ajouté au panier", {
                         icon: 'fas fa-cart-plus'
                     });
                 } else {
                     this.$store.dispatch('updateCart', {
                         id, unit: 1, cart: this.cart
                     });
-                    this.$toast.info("Already added to the cart and update with one");
+                    this.$toast.info("Déjà ajouté au panier et mettre à jour avec un");
                 }
             } else {
                 this.$store.dispatch('addToCart', product)
-                this.$toast("Added to cart",{
+                this.$toast("Ajouté au panier",{
                     icon: 'fas fa-cart-plus'
                 });
             }
 
             this.closeQuickView()
-        },
-        increaseQuantity(){
-            if(this.quantity > 9){
-                this.$toast.error("Can't add more than 10",{
-                    icon: 'fas fa-cart-plus'
-                });
-            } else {
-                this.quantity++
-            }
-        },
-        decreaseQuantity() {
-            if(this.quantity < 2){
-                this.$toast.error("Can't add less than 1",{
-                    icon: 'fas fa-cart-plus'
-                });
-            } else {
-                this.quantity--;
-            }
         },
     },
     computed: {

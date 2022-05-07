@@ -134,7 +134,7 @@ export default {
         setTimeout(()=>{
           that.btnLoader = false
           that.$router.push('/login')
-        }, 800) 
+        }, 800)
         
       } else {
         this.btnLoader = false

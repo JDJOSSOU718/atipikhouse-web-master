@@ -175,9 +175,7 @@
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
-  .admin-dashboard .sidebar {
-    display: none !important;
-  }
+  
   .admin-dashboard [role="main"] {
     margin-left: 0 !important;
     padding-left: 15px !important;

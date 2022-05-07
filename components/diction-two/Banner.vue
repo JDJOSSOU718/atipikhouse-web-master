@@ -16,12 +16,10 @@
               <div class="d-table-cell">
                 <div class="container">
                   <div class="main-banner-content">
-                    <span>New Inspiration 2021</span>
-                    <h1>Clothing made for you!</h1>
-                    <p>Trending from men and women style collection</p>
+                    <span>Yourt</span>
+                    <h1>Yourt à louer</h1>
 
-                    <a href="#" class="btn btn-primary">Shop Women's</a>
-                    <a href="#" class="btn btn-light">Shop Men's</a>
+                    <a href="#" class="btn btn-primary">Location</a>
                   </div>
                 </div>
               </div>
@@ -35,12 +33,10 @@
               <div class="d-table-cell">
                 <div class="container">
                   <div class="main-banner-content">
-                    <span>New Inspiration 2021</span>
-                    <h1>Clothing made for you!</h1>
-                    <p>Trending from men and women style collection</p>
+                    <span>Tente</span>
+                    <h1>Tente à louer</h1>
 
-                    <a href="#" class="btn btn-primary">Shop Women's</a>
-                    <a href="#" class="btn btn-light">Shop Men's</a>
+                    <a href="#" class="btn btn-primary">Location</a>
                   </div>
                 </div>
               </div>
@@ -54,12 +50,10 @@
               <div class="d-table-cell">
                 <div class="container">
                   <div class="main-banner-content">
-                    <span>New Inspiration 2021</span>
-                    <h1>Clothing made for you!</h1>
-                    <p>Trending from men and women style collection</p>
+                    <span>Le cude</span>
+                    <h1>Maison à louer</h1>
 
-                    <a href="#" class="btn btn-primary">Shop Women's</a>
-                    <a href="#" class="btn btn-light">Shop Men's</a>
+                    <a href="#" class="btn btn-primary">Location</a>
                   </div>
                 </div>
               </div>

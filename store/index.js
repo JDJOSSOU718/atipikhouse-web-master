@@ -74,13 +74,6 @@ const mutations = {
 }
 
 const actions = {
-    // nuxtServerInit is called by Nuxt.js before server-rendering every page
-    // nuxtServerInit({ commit }, { req }) {
-    //     if (req.authUser) {
-    //         commit('SET_USER', req.authUser)
-    //     }
-    // },
-    
     async login({ commit }, { email, password }) {
         try {
             const { success, data } = await this.$axios.$post(baseUrl + '/api/v1/login/', {

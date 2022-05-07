@@ -3,55 +3,43 @@
         <div class="single-product-box">
             <div class="product-image">
                 <nuxt-link :to="`/products-details/${product.id}`">
-                    <img :src="product.image" :alt="product.name" />
-                    <img :src="product.imageHover" :alt="product.name" />
+                    <img :src="product.photos[0]" :alt="product.title" />
+                    <img :src="product.photos[1]" :alt="product.title" />
                 </nuxt-link>
 
                 <ul>
                     <li>
                         <a
                             href="javascript:void(0)"
-                            title="Quick View"
+                            title="Vu rapide"
                             v-b-tooltip.hover
                             @click.prevent="quickView"
                         >
                         <i class="far fa-eye"></i>
                         </a>
                     </li>
-                    <li>
-                        <a href="#" title="Add to Wishlist" v-b-tooltip.hover>
-                            <i class="far fa-heart"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" title="Add to Compare" v-b-tooltip.hover>
-                            <i class="fas fa-sync"></i>
-                        </a>
-                    </li>
+                    
                 </ul>
             </div>
 
             <div class="product-content">
                 <h3>
                     <nuxt-link :to="`/products-details/${product.id}`">
-                        {{product.name}}
+                        {{product.title}}
                     </nuxt-link>
                 </h3>
 
                 <div class="product-price">
-                    <span class="old-price" v-if="product.offer">
-                        ${{ product.price - product.offerPrice }}
-                    </span>
-                    <span class="new-price">${{ product.price }}</span>
+                    <span class="new-price">{{ product.price }}€</span>
                 </div>
 
-                <div class="rating">
+                <!-- <div class="rating">
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
                     <i class="far fa-star"></i>
-                </div>
+                </div> -->
 
                 <a
                     v-if="getExistPId === product.id"
@@ -59,7 +47,7 @@
                     class="btn btn-light added-btn"
                     @click="addToCart(product)"
                 >
-                    Added Already!
+                    Déjà Ajouté
                 </a>
 
                 <a
@@ -68,7 +56,7 @@
                     class="btn btn-light"
                     @click="addToCart(product)"
                 >
-                    Add to Cart
+                    Ajouter au panier
                 </a>
             </div>
         </div>
@@ -92,15 +80,15 @@ export default {
     },
     methods: {
         quickView(e) {
-            this.$emit('clicked')
+            this.$emit('clicked', this.product)
         },
         addToCart(item) {
             const product = [
                 {
                     id: item.id,
-                    name: item.name,
+                    title: item.title,
                     price: item.price,
-                    image: item.image,
+                    photos: item.photos,
                     quantity: 1,
                 },
             ]
@@ -114,7 +102,7 @@ export default {
 
                 if (cartIndex == -1) {
                     this.$store.dispatch('addToCart', product)
-                    this.$toast('Added to cart', {
+                    this.$toast('Ajouté au panier', {
                         icon: 'fas fa-cart-plus',
                     })
                 } else {
@@ -123,11 +111,11 @@ export default {
                         unit: 1,
                         cart: this.cart,
                     })
-                    this.$toast.info('Already added to the cart and update with one')
+                    this.$toast.info('Déjà ajouté au panier et mettre à jour avec un')
                 }
             } else {
                 this.$store.dispatch('addToCart', product)
-                this.$toast('Added to cart', {
+                this.$toast('Ajouté au panier', {
                     icon: 'fas fa-cart-plus',
                 })
             }

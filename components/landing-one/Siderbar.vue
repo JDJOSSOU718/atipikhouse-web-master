@@ -102,7 +102,7 @@ export default {
  props: {
    grade: {
      type: String,
-     default: 'owner'
+     default: 'customer'
    }
  }
 }
