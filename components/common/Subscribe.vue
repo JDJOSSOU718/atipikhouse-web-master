@@ -5,10 +5,10 @@
       <div class="row align-items-center">
         <div class="col-lg-6">
           <div class="newsletter-content">
-            <h3>Subscribe to our newsletter</h3>
+            <h3>Souscrire à la newsletter</h3>
             <p>
-              A short sentence describing what someone will receive by
-              subscribing
+              Une courte phrase décrivant ce que quelqu'un recevra en s'inscrivant à la liste de diffusion.
+              s'abonnant à
             </p>
           </div>
         </div>
@@ -23,7 +23,7 @@
               v-model="subscriptions.email"
               autocomplete="off"
             />
-            <button @click="subscribe" type="submit">Subscribe!</button>
+            <button @click="subscribe" type="submit">Souscrire!</button>
           </form>
         </div>
       </div>
@@ -48,12 +48,12 @@ export default {
         this.validateEmail(this.subscriptions.email)
       ) {
         
-        this.$toast.success(`Thanks for your subscriptions`, {
+        this.$toast.success(`Merci pour vos abonnements`, {
           icon: 'fas fa-user-check',
         })
         this.subscriptions.email = ''
       } else {
-        this.$toast.error(`Please fillup with a valid email`, {
+        this.$toast.error(`Veuillez remplir le formulaire avec une adresse e-mail valide`, {
           icon: 'fas fa-times',
         })
       }

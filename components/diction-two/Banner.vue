@@ -17,7 +17,7 @@
                 <div class="container">
                   <div class="main-banner-content">
                     <span>Yourt</span>
-                    <h1>Yourt à louer</h1>
+                    <h1 style="color: #fff;">Yourt à louer</h1>
 
                     <a href="#" class="btn btn-primary">Location</a>
                   </div>
@@ -34,7 +34,7 @@
                 <div class="container">
                   <div class="main-banner-content">
                     <span>Tente</span>
-                    <h1>Tente à louer</h1>
+                    <h1 style="color: #fff;">Tente à louer</h1>
 
                     <a href="#" class="btn btn-primary">Location</a>
                   </div>
@@ -51,7 +51,7 @@
                 <div class="container">
                   <div class="main-banner-content">
                     <span>Le cude</span>
-                    <h1>Maison à louer</h1>
+                    <h1 style="color: #fff;">Maison à louer</h1>
 
                     <a href="#" class="btn btn-primary">Location</a>
                   </div>

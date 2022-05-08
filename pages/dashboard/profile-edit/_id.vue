@@ -14,7 +14,7 @@
     <!-- End Page Title Area -->
     <div class="container-fluid pt-5">
       <div class="row">
-        <Sidebar :garde="$store.state.authUser.grade" />
+        <Sidebar />
         <div class="col-md-12 ml-sm-auto col-lg-10 px-4">
           <EditUserForm :provData="user" />
         </div>

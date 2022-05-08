@@ -4,8 +4,8 @@
     <div class="page-title-area">
       <div class="container">
         <ul>
-          <li><nuxt-link to="/">Home</nuxt-link></li>
-          <li>Cart</li>
+          <li><nuxt-link to="/">Accueil</nuxt-link></li>
+          <li>Panier</li>
         </ul>
       </div>
     </div>
@@ -100,13 +100,13 @@
 
             <div class="col-lg-6 col-md-12">
               <div class="order-details">
-                <h3 class="title">Your Order</h3>
+                <h3 class="title">Votre commande</h3>
 
                 <div class="order-table table-responsive">
                   <table class="table table-bordered">
                     <thead>
                       <tr>
-                        <th scope="col">Product Name</th>
+                        <th scope="col">Nom de la location</th>
                         <th scope="col">Total</th>
                       </tr>
                     </thead>
@@ -114,19 +114,19 @@
                     <tbody>
                       <tr v-for="(cart, i) in cart" :key="i">
                         <td class="product-name">
-                          <a href="#">{{ cart.name }}</a>
+                          <a href="#">{{ cart.title }}</a>
                         </td>
 
                         <td class="product-total">
                           <span class="subtotal-amount"
-                            >${{ cart.price * cart.quantity }}</span
+                            >{{ cart.price * cart.quantity }}€</span
                           >
                         </td>
                       </tr>
 
                       <tr>
                         <td class="order-subtotal">
-                          <span>Cart Subtotal</span>
+                          <span>Panier Sous-total</span>
                         </td>
 
                         <td class="order-subtotal-price">
@@ -136,22 +136,13 @@
                         </td>
                       </tr>
                       <tr>
-                        <td class="order-shipping">
-                          <span>Shipping</span>
-                        </td>
-
-                        <td class="shipping-price">
-                          <span>$10.00</span>
-                        </td>
-                      </tr>
-                      <tr>
                         <td class="total-price">
-                          <span>Order Total</span>
+                          <span>Commande Total</span>
                         </td>
 
                         <td class="product-subtotal">
                           <span class="subtotal-amount"
-                            >${{ parseFloat(cartTotal + 10).toFixed(2) }}</span
+                            >${{ parseFloat(cartTotal).toFixed(2) }}</span
                           >
                         </td>
                       </tr>

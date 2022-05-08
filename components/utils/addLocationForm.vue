@@ -153,6 +153,9 @@
                   <i style="margin-left: 5px" class="fa fa-times"></i
                 ></a>
               </div>
+              <div v-if="provData.id && Object.keys(house.photos).length !== 0" class="col-12">
+                <img v-for="(photo, y) in house.photos" :key="y" :src="photo" class="thumbnail-img">
+              </div>
             </div>
           </div>
           <div class="col-md-12 text-center">
@@ -450,3 +453,11 @@ export default {
   },
 }
 </script>
+<style scoped>
+  img.thumbnail-img{
+    display: inline;
+    margin: 15px 7px;
+    width: 80px;
+    height: 80px;
+  }
+</style>

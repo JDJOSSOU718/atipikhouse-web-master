@@ -41,6 +41,7 @@
                                         <li><span>Type:</span> {{product.type}}</li>
                                         <li><span>Nombre de couchage:</span> {{product.nbr_couchage}}</li>
                                         <li><span>Capacité:</span> {{product.capacity}}</li>
+                                        <li v-if="product.location != null"><span>Localisation:</span> {{product.location}}</li>
                                     </ul>
                                     <div class="product-color-switch mb-5">
                                     </div>

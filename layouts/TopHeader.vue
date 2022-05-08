@@ -8,9 +8,9 @@
                     <div class="col-lg-7 col-md-6">
                         <ul class="top-header-nav">
                             
-                            <li><a href="#"><i class="fab fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a></li>
+                            <li><a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a></li>
                         </ul>
                     </div>
 

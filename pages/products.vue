@@ -6,8 +6,8 @@
     <div class="page-title-area">
       <div class="container">
         <ul>
-          <li><nuxt-link to="/">Home</nuxt-link></li>
-          <li>All Products</li>
+          <li><nuxt-link to="/">Accueil</nuxt-link></li>
+          <li>Tout les biens</li>
         </ul>
       </div>
     </div>
@@ -17,12 +17,12 @@
     <div class="products-collections-area ptb-60">
       <div class="container">
         <div class="section-title">
-          <h2><span class="dot"></span> Products</h2>
+          <h2><span class="dot"></span> Biens</h2>
         </div>
 
         <div class="row">
-          <Sidebar />
-          <AllProducts />
+          <Sidebar @typeFiltered="updateTypeFilter" @priceFiltered="updatePriceFilter" />
+          <AllProducts :type="typeFilter" :priceRange="priceFilter" />
         </div>
       </div>
     </div>
@@ -43,5 +43,19 @@ export default {
     Sidebar,
     AllProducts,
   },
+  data(){
+    return {
+      typeFilter: '',
+      priceFilter: {}
+    }
+  },
+  methods: {
+    updateTypeFilter(type){
+      this.typeFilter = type
+    },
+    updatePriceFilter(price){
+      this.priceFilter = price
+    }
+  }
 }
 </script>

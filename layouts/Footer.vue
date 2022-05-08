@@ -16,9 +16,8 @@
                         <h3>Liens rapide</h3>
 
                         <ul class="quick-links">
-                            <li><nuxt-link to="/gallery-one">Gallery</nuxt-link></li>
-                            <li><nuxt-link to="/cart">Cart</nuxt-link></li>
-                            <li><nuxt-link to="/checkout">Checkout</nuxt-link></li>
+                            <li><nuxt-link to="/cart">Panier</nuxt-link></li>
+                            <li><nuxt-link to="/checkout">Caisse</nuxt-link></li>
                             <li><nuxt-link to="/contact">Contactez-nous</nuxt-link></li>
                         </ul>
                     </div>
@@ -29,10 +28,10 @@
                         <h3>Information</h3>
 
                         <ul class="information-links">
-                            <li><nuxt-link to="/login">Login</nuxt-link></li>
-                            <li><nuxt-link to="/signup">Signup</nuxt-link></li>
-                            <li><nuxt-link to="/blog-one">Blog</nuxt-link></li>
-                            <li><nuxt-link to="/contact">Contact Us</nuxt-link></li>
+                            <li><nuxt-link to="/login">Connexion</nuxt-link></li>
+                            <li><nuxt-link to="/signup">Inscription</nuxt-link></li>
+                            <li><nuxt-link to="/blog-one">Les Biens</nuxt-link></li>
+                            <li><nuxt-link to="/contact">ontactez-nous</nuxt-link></li>
                         </ul>
                     </div>
                 </div>

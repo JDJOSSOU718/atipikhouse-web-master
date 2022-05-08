@@ -2,7 +2,7 @@
     <div class="offer-area ptb-60">
         <div class="container">
             <div class="section-title">
-                <h2><span class="dot"></span> Alow your style to match your ambition!</h2>
+                <h2><span class="dot"></span> Trouvez votre type de location ici!</h2>
             </div>
 
             <div class="row">
@@ -18,11 +18,11 @@
                     >
                         <slide>
                             <div class="single-offer-box">
-                                <img src="../../assets/img/offer-img1.jpg" alt="image">
+                                <img src="../../assets/img/house-type/cube.jpg" alt="image">
 
                                 <div class="offer-content">
-                                    <h3>T-Shirts</h3>
-                                    <span>65 Products</span>
+                                    <h3>Cube</h3>
+                                    <span>{{ cubeCount }} location(s)</span>
                                 </div>
 
                                 <a href="#"></a>
@@ -31,11 +31,11 @@
 
                         <slide>
                             <div class="single-offer-box">
-                                <img src="../../assets/img/offer-img2.jpg" alt="image">
+                                <img src="../../assets/img/house-type/tente.jpg" alt="image">
 
                                 <div class="offer-content">
-                                    <h3>Accessories</h3>
-                                    <span>155 Products</span>
+                                    <h3>Tente</h3>
+                                    <span>{{ tenteCount }} location(s)</span>
                                 </div>
 
                                 <a href="#"></a>
@@ -44,11 +44,11 @@
 
                         <slide>
                             <div class="single-offer-box">
-                                <img src="../../assets/img/offer-img3.jpg" alt="image">
+                                <img src="../../assets/img/house-type/tiny.jpg" alt="image">
 
                                 <div class="offer-content">
-                                    <h3>Footwaer</h3>
-                                    <span>175 Products</span>
+                                    <h3>Tiny House</h3>
+                                    <span>{{ tinyCount }} location(s)</span>
                                 </div>
 
                                 <a href="#"></a>
@@ -57,29 +57,17 @@
                             
                         <slide>
                             <div class="single-offer-box">
-                                <img src="../../assets/img/offer-img4.jpg" alt="image">
+                                <img src="../../assets/img/house-type/yourt.jpg" alt="image">
 
                                 <div class="offer-content">
-                                    <h3>Shirts</h3>
-                                    <span>548 Products</span>
+                                    <h3>Yourt</h3>
+                                    <span>{{yourtCount}} location(s)</span>
                                 </div>
 
                                 <a href="#"></a>
                             </div>
                         </slide>
 
-                        <slide>
-                            <div class="single-offer-box">
-                                <img src="../../assets/img/offer-img3.jpg" alt="image">
-
-                                <div class="offer-content">
-                                    <h3>Footwaer</h3>
-                                    <span>175 Products</span>
-                                </div>
-
-                                <a href="#"></a>
-                            </div>
-                        </slide>
                     </carousel>
                 </div>
             </div>
@@ -89,6 +77,24 @@
 
 <script>
 export default {
+    props:{
+        yourtCount:{
+            type: Number,
+            default: 0
+        },
+        tenteCount: {
+            type: Number,
+            default: 0
+        },
+        cubeCount: {
+            type: Number,
+            default: 0
+        },
+        tinyCount: {
+            type: Number,
+            default: 0
+        },
+    },
     name: 'AlowYourStyle'
 }
 </script>

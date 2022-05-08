@@ -44,7 +44,7 @@
             Modifier profile
           </nuxt-link>
         </li>
-        <li v-if="grade =='owner'" class="nav-item">
+        <li v-if="$store.state.authUser.grade =='owner'" class="nav-item">
           <nuxt-link title="Ajouter une location" class="nav-link" to="/dashboard/add-location">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -67,7 +67,7 @@
             Ajouter une location
           </nuxt-link>
         </li>
-        <li v-if="grade == 'owner'" class="nav-item">
+        <li v-if="$store.state.authUser.grade == 'owner'" class="nav-item">
           <nuxt-link title="Vos locations" class="nav-link" to="/dashboard/locations-lists">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -96,17 +96,7 @@
     </div>
   </nav>
 </template>
-<script>
 
-export default {
- props: {
-   grade: {
-     type: String,
-     default: 'customer'
-   }
- }
-}
-</script>
 <style scoped>
 .sidebar .nav-link {
   font-weight: 500;

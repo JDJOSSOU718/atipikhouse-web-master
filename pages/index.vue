@@ -3,7 +3,7 @@
     <TopHeader />
     <Menubar />
     <Banner />
-    <AlowYourStyle />
+    <AlowYourStyle :yourtCount="yourtTypeCount" :tenteCount="tenteTypeCount" :cubeCount="cubeTypeCount" :tinyCount="tinyHouseTypeCount"  />
     <BestSellers :provData="products" />
     <Offer />
     <Testimonials></Testimonials>
@@ -35,7 +35,7 @@ export default {
     return {
       title: 'Atipikhouse',
       meta: [
-        { hid: 'keywords', name: 'keywords', content: 'Atipikhouse, Locations, Habitation, En vendre' },
+        { hid: 'keywords', name: 'keywords', content: 'Atipikhouse, Locations, Habitation, En location' },
         { hid: 'description', name: 'description', content: 'Atipikhouse vendez vos biens en ligne!' },
         { property: 'og:type', content: 'website' },
         { property: 'og:description', content: 'Atipikhouse vendez vos biens en ligne!' },
@@ -46,13 +46,30 @@ export default {
   async asyncData({  error, $axios, store }){
     let { success, data } = await $axios.$get(`${store.state.apiBaseUrl}/api/v1/houses/`),
     returned = {
-      products: []
+      products: [],
+      yourtTypeCount: 0,
+      tenteTypeCount: 0,
+      tinyHouseTypeCount: 0,
+      cubeTypeCount: 0
     };
     if (success) {
       let publishHouse = data.filter((item)=>{
         return item.status == 'publish'
       })
       returned.products = publishHouse.slice(Math.max(publishHouse.length - 4, 0))
+      returned.yourtTypeCount = data.filter((item)=>{
+        return item.status == 'publish' && item.type.toLowerCase().includes('yourt')
+      }).length
+      returned.tenteTypeCount = data.filter((item)=>{
+        return item.status == 'publish' && item.type.toLowerCase().includes('tente')
+      }).length
+      returned.tinyHouseTypeCount = data.filter((item)=>{
+        return item.status == 'publish' && item.type.toLowerCase().includes('tiny')
+      }).length
+      returned.cubeTypeCount = data.filter((item)=>{
+        return item.status == 'publish' && item.type.toLowerCase().includes('cube')
+      }).length
+
     }
     return returned
   }

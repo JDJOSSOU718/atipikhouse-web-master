@@ -12,7 +12,7 @@
                             class="modal-body"
                             v-if="cart.length > 0"
                         >
-                            <h3>My Cart ({{cart.length}})</h3>
+                            <h3>Panier ({{cart.length}})</h3>
 
                             <div class="product-cart-content">
 
@@ -22,16 +22,13 @@
                                     :key="cart.id"
                                 >
                                     <div class="product-image">
-                                        <img :src="cart.image" :alt="cart.name" />
+                                        <img :src="cart.photos[0]" :alt="cart.title" />
                                     </div>
 
                                     <div class="product-content">
-                                        <h3><a href="#">{{cart.name}}</a></h3>
-                                        <span>Blue / XS</span>
+                                        <h3><a href="#">{{cart.title}}</a></h3>
                                         <div class="product-price">
-                                            <span>{{cart.quantity}}</span>
-                                            <span>x</span>
-                                            <span class="price">${{cart.price}}</span>
+                                            <span class="price">{{cart.price}}€</span>
                                         </div>
                                     </div>
                                 </div>
@@ -39,21 +36,20 @@
                             </div>
 
                             <div class="product-cart-subtotal">
-                                <span>Subtotal</span>
+                                <span>Sous total</span>
 
-                                <span class="subtotal">${{cartTotal}}</span>
+                                <span class="subtotal">{{cartTotal}}€</span>
                             </div>
 
                             <div @click="closeSidebarPanel" class="product-cart-btn">
                                 <nuxt-link to="/checkout" class="btn btn-primary">Proceed to Checkout</nuxt-link>
-                                <nuxt-link to="/cart" class="btn btn-light">View Shopping Cart</nuxt-link>
+                                <nuxt-link to="/cart" class="btn btn-light">Passer à la caisse</nuxt-link>
                             </div>
                         </div>
                         <div class="modal-body" v-else>
-                            <h3>Empty!</h3>
+                            <h3>Vide!</h3>
                             <div @click="closeSidebarPanel" class="product-cart-btn">
-                                <nuxt-link to="/products" class="btn btn-primary">Browse All Time Hot!</nuxt-link>
-                                <nuxt-link to="/products" class="btn btn-light">Browse Latest!</nuxt-link>
+                                <nuxt-link to="/products" class="btn btn-primary">Trouvez des locations</nuxt-link>
                             </div>
                         </div>
                     </div>

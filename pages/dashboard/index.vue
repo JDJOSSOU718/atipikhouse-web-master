@@ -14,7 +14,7 @@
     <!-- End Page Title Area -->
     <div class="container-fluid pt-5">
       <div class="row">
-        <Sidebar :grade="$store.state.authUser.grade" />
+        <Sidebar />
         <div class="col-md-12 ml-sm-auto col-lg-10 px-4">
           <div>
             <h4>
@@ -36,10 +36,5 @@ import checkGrade from '../../middleware/checkGrade'
 export default {
   components: { TopHeader, Menubar, Sidebar },
   middleware: [auth, checkGrade],
-  data() {
-      return {
-          
-      }
-  }
 }
 </script>

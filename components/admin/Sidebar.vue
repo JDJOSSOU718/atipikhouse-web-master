@@ -3,7 +3,12 @@
     <div class="sidebar-sticky">
       <ul class="nav flex-column">
         <li class="nav-item">
-          <nuxt-link v-b-tooltip.hover title="Admin" class="nav-link" to="/admin">
+          <nuxt-link
+            v-b-tooltip.hover
+            title="Admin"
+            class="nav-link"
+            to="/admin"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -93,7 +98,11 @@
           </nuxt-link>
         </li>
         <li class="nav-item">
-           <nuxt-link title="Locations" class="nav-link" to="/admin/locations-lists">
+          <nuxt-link
+            title="Locations"
+            class="nav-link"
+            to="/admin/locations-lists"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -131,13 +140,13 @@
           text-muted
         "
       >
-        <span>Saved reports</span>
+        <span>Options</span>
         <a
           v-b-tooltip.hover
           title="Coming Soon"
           class="d-flex align-items-center text-muted"
           href="#"
-          aria-label="Add a new report"
+          aria-label="options"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -159,106 +168,52 @@
       </h6>
       <ul class="nav flex-column mb-2">
         <li class="nav-item">
-          <a v-b-tooltip.hover title="Coming Soon" class="nav-link" href="#">
+          <a
+            v-b-tooltip.hover
+            title="Coming Soon"
+            class="nav-link"
+            @click="logout"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
+              aria-hidden="true"
+              role="img"
+              width="1em"
+              height="1em"
+              preserveAspectRatio="xMidYMid meet"
               viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="feather feather-file-text"
             >
               <path
-                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-              ></path>
-              <polyline points="14 2 14 8 20 8"></polyline>
-              <line x1="16" y1="13" x2="8" y2="13"></line>
-              <line x1="16" y1="17" x2="8" y2="17"></line>
-              <polyline points="10 9 9 9 8 9"></polyline>
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4m7 14l5-5l-5-5m5 5H9"
+              />
             </svg>
-            Current month
-          </a>
-        </li>
-        <li class="nav-item">
-          <a v-b-tooltip.hover title="Coming Soon" class="nav-link" href="#">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="feather feather-file-text"
-            >
-              <path
-                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-              ></path>
-              <polyline points="14 2 14 8 20 8"></polyline>
-              <line x1="16" y1="13" x2="8" y2="13"></line>
-              <line x1="16" y1="17" x2="8" y2="17"></line>
-              <polyline points="10 9 9 9 8 9"></polyline>
-            </svg>
-            Last quarter
-          </a>
-        </li>
-        <li class="nav-item">
-          <a v-b-tooltip.hover title="Coming Soon" class="nav-link" href="#">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="feather feather-file-text"
-            >
-              <path
-                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-              ></path>
-              <polyline points="14 2 14 8 20 8"></polyline>
-              <line x1="16" y1="13" x2="8" y2="13"></line>
-              <line x1="16" y1="17" x2="8" y2="17"></line>
-              <polyline points="10 9 9 9 8 9"></polyline>
-            </svg>
-            Social engagement
-          </a>
-        </li>
-        <li class="nav-item">
-          <a v-b-tooltip.hover title="Coming Soon" class="nav-link" href="#">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="feather feather-file-text"
-            >
-              <path
-                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-              ></path>
-              <polyline points="14 2 14 8 20 8"></polyline>
-              <line x1="16" y1="13" x2="8" y2="13"></line>
-              <line x1="16" y1="17" x2="8" y2="17"></line>
-              <polyline points="10 9 9 9 8 9"></polyline>
-            </svg>
-            Year-end sale
+
+            Déconnexion
           </a>
         </li>
       </ul>
     </div>
   </nav>
 </template>
+
+<script>
+export default {
+  methods: {
+    async logout(e) {
+      e.preventDefault()
+      try {
+        await this.$store.dispatch('logout', this.$store.state.authUser.id)
+        this.$router.push('/')
+      } catch (error) {
+        this.formError = error.message
+        this.$toast.error(error.message)
+      }
+    },
+  },
+}
+</script>
