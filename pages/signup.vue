@@ -152,6 +152,18 @@ import users from '../mixins/users'
 import BLoader from '../components/common/btnLoader.vue'
 
 export default {
+  head () {
+    return {
+      title: 'Atypikhouse - Inscription',
+      meta: [
+        { hid: 'keywords', name: 'keywords', content: 'Atypikhouse, Locations, Habitation, En location, Propriétaire, Louer vos biens sur AtypikHouse' },
+        { hid: 'description', name: 'description', content: 'Atypikhouse louez vos biens en ligne!' },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:description', content: 'Atypikhouse vendez vos louez en ligne!' },
+        { property: 'og:image', content: '/icon.png' }
+      ],
+    }
+  },
   components: {
     TopHeader,
     Menubar,

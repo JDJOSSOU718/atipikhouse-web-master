@@ -7,6 +7,7 @@
       <div class="container">
         <ul>
           <li><nuxt-link to="/">Accueil</nuxt-link></li>
+          <li><nuxt-link to="/dashboard">Mon compte</nuxt-link></li>
           <li>Modification de profile</li>
         </ul>
       </div>
@@ -34,6 +35,30 @@ import checkGrade from '../../../middleware/checkGrade'
 export default {
     validate({ params }) {
     return params.id != '' ? true : false;
+  },
+  head() {
+    return {
+      title: 'Atypikhouse - Edition de profile',
+      meta: [
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content:
+            'Atypikhouse, Locations, Habitation, En location',
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Atypikhouse louez vos biens en ligne!',
+        },
+        { property: 'og:type', content: 'website' },
+        {
+          property: 'og:description',
+          content: 'Atypikhouse louez vos biens en ligne!',
+        },
+        { property: 'og:image', content: '/icon.png' },
+      ],
+    }
   },
   components: { TopHeader, Menubar, Sidebar, EditUserForm },
   middleware: [auth, checkGrade],

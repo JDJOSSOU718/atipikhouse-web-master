@@ -28,7 +28,12 @@
           </nuxt-link>
         </li>
         <li class="nav-item">
-          <a v-b-tooltip.hover title="Coming Soon" class="nav-link" href="#">
+          <nuxt-link
+            v-b-tooltip.hover
+            title="Utilisateurs"
+            class="nav-link"
+            to="/admin/users-lists"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -46,29 +51,43 @@
               <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
               <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
             </svg>
-            Customers
-          </a>
+            Listes des utilisateurs
+          </nuxt-link>
         </li>
         <li class="nav-item">
-          <a v-b-tooltip.hover title="Coming Soon" class="nav-link" href="#">
+          <nuxt-link
+            v-b-tooltip.hover
+            title="Ajouter utilisateur"
+            class="nav-link"
+            to="/admin/add-user"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
               width="24"
               height="24"
-              viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
-              class="feather feather-bar-chart-2"
+              viewBox="0 0 24 24"
             >
-              <line x1="18" y1="20" x2="18" y2="10"></line>
-              <line x1="12" y1="20" x2="12" y2="4"></line>
-              <line x1="6" y1="20" x2="6" y2="14"></line>
+              <g
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+              >
+                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                <circle cx="8.5" cy="7" r="4" />
+                <path d="M20 8v6m3-3h-6" />
+              </g>
             </svg>
-            Reports
-          </a>
+
+            Ajouter utilisateur
+          </nuxt-link>
         </li>
         <li class="nav-item">
           <nuxt-link
@@ -168,19 +187,47 @@
       </h6>
       <ul class="nav flex-column mb-2">
         <li class="nav-item">
+          <nuxt-link
+            v-b-tooltip.hover
+            title="Accueil"
+            class="nav-link"
+            to="/"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="feather feather-home"
+            >
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            Retour à l'accueil
+          </nuxt-link>
+        </li>
+        <li class="nav-item">
           <a
             v-b-tooltip.hover
-            title="Coming Soon"
+            title="Déconnexion"
             class="nav-link"
             @click="logout"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               aria-hidden="true"
-              role="img"
-              width="1em"
-              height="1em"
-              preserveAspectRatio="xMidYMid meet"
+              fill="none"
+              width="24"
+              height="24"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
               viewBox="0 0 24 24"
             >
               <path

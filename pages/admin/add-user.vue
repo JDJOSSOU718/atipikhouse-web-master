@@ -30,7 +30,7 @@
               </div>
             </div>
           </div>
-          <AddLocationForm :admin="true" />
+          <EditUserForm :admin="true" />
           <div class="container p-5"></div>
         </main>
       </div>
@@ -42,12 +42,12 @@
 import Sidebar from '../../components/admin/Sidebar'
 import auth from '../../middleware/auth'
 import checkAdminGrade from '../../middleware/ckeckAdminGrade'
-import AddLocationForm from '../../components/utils/addLocationForm'
+import EditUserForm from '../../components/utils/editUserForm.vue'
 export default {
   layout: 'admin',
   components: {
     Sidebar,
-    AddLocationForm,
+    EditUserForm,
   },
   middleware: [auth, checkAdminGrade],
   data() {

@@ -2,7 +2,7 @@
   <div class="container">
     <div class="">
       <div v-if="!admin" class="section-title">
-        <h2><span class="dot"></span>Listes des biens</h2>
+        <h2><span class="dot"></span>Listes des utilisateurs</h2>
       </div>
     </div>
     <div class="col-lg-12">
@@ -30,11 +30,11 @@
 
 <script>
 import VGrid, { VGridVueTemplate } from '@revolist/vue-datagrid'
-import statusFormatedTemplate from '../tableCommon/locations-parts/statusFormatedTemplate'
-import actionTemplate from '../tableCommon/locations-parts/actionTemplate'
-import titleTemplate from '../tableCommon/locations-parts/titleTemplate'
+import gradeFormatedTemplate from '../tableCommon/users-parts/gradeFormatedTemplate'
+import actionTemplate from '../tableCommon/users-parts/actionTemplate'
+import nameTemplate from '../tableCommon/users-parts/nameTemplate'
+import onlineTemplate from '../tableCommon/users-parts/onlineTemplate'
 import users from '../../mixins/users'
-import houses from '../../mixins/houses'
 export default {
   props: {
     admin: {
@@ -43,16 +43,16 @@ export default {
     },
   },
   components: { VGrid },
-  mixins: [users, houses],
+  mixins: [users],
   data() {
     return {
       columns: [
         {
-          prop: 'title',
-          name: 'Titre',
+          prop: 'id',
+          name: 'Nom et Prénoms',
           sortable: true,
-          size: 250,
-          cellTemplate: VGridVueTemplate(titleTemplate),
+          size: 200,
+          cellTemplate: VGridVueTemplate(nameTemplate),
           cellProperties: () => {
             return {
               class: {
@@ -62,11 +62,11 @@ export default {
           },
         },
         {
-          name: 'Status',
-          prop: 'status',
-          size: 100,
+          name: 'Grade',
+          prop: 'grade',
+          size: 120,
           sortable: true,
-          cellTemplate: VGridVueTemplate(statusFormatedTemplate),
+          cellTemplate: VGridVueTemplate(gradeFormatedTemplate),
           cellProperties: () => {
             return {
               class: {
@@ -76,44 +76,55 @@ export default {
           },
         },
         {
-          name: 'Type',
-          prop: 'type',
-          sortable: true,
-          size: 150,
-          cellProperties: () => {
-            return {
-              class: {
-                "p-2": true,
-              },
-            }
-          },
-        },
-        {
-          name: 'Prix (€)',
-          prop: 'price',
-          sortable: true,
-          size: 100,
-          cellTemplate: (createElement, props) => {
-            return createElement('span', {}, props.model.price + ' €')
-          },
-          cellProperties: () => {
-            return {
-              class: {
-                "p-2": true,
-              },
-            }
-          },
-        },
-        {
-          name: 'Créer par',
-          prop: 'last_name',
+          name: 'Email',
+          prop: 'email',
           sortable: true,
           size: 180,
+          cellProperties: () => {
+            return {
+              class: {
+                "p-2": true,
+              },
+            }
+          },
+        },
+        {
+          name: 'Téléphone',
+          prop: 'phone',
+          sortable: true,
+          size: 100,
+          cellProperties: () => {
+            return {
+              class: {
+                "p-2": true,
+              },
+            }
+          },
+        },
+        {
+          name: 'Connecter',
+          prop: 'is_online',
+          sortable: true,
+          size: 100,
+          cellTemplate: VGridVueTemplate(onlineTemplate),
+          cellProperties: () => {
+            return {
+              class: {
+                "p-2": true,
+              },
+            }
+          },
+        },
+        {
+          name: 'Dernière connexion',
+          prop: 'last_login',
+          sortable: true,
+          size: 120,
           cellTemplate: (createElement, props) => {
             return createElement(
               'span',
               {},
-              props.model.first_name + ' ' + props.model.last_name
+              this.$moment.unix(props.model.created_date).format('L')
             )
           },
           cellProperties: () => {
@@ -160,18 +171,12 @@ export default {
     async updateDataList() {
       this.loading = true
       let result = false
-      if(this.admin){
-        result = await this.getHouses()
-      }else{
-        result = await this.getUserHouse()
-      }
       
-      if (await result) {
-        this.listData = result
+    result = await this.getUsers()
+      
+      if (result.success) {
+        this.listData = result.data
         this.tableDataReady = true
-        this.loading = false
-      } else {
-        this.loading = false
       }
     },
   },

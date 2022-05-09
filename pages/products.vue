@@ -37,6 +37,18 @@ import Sidebar from '../components/all-products/Sidebar'
 import AllProducts from '../components/all-products/AllProducts'
 
 export default {
+  head () {
+    return {
+      title: 'Atypikhouse - Biens',
+      meta: [
+        { hid: 'keywords', name: 'keywords', content: 'Atypikhouse, Locations, Habitation, Biens à louez, A louer, Listes de locations' },
+        { hid: 'description', name: 'description', content: 'Atypikhouse louez vos biens en ligne!' },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:description', content: 'Atypikhouse louez vos biens en ligne!' },
+        { property: 'og:image', content: '/icon.png' }
+      ],
+    }
+  },
   components: {
     TopHeader,
     Menubar,

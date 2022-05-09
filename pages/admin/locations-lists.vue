@@ -19,14 +19,14 @@
             <h1 class="h2">Tableau de bord</h1>
             <div class="btn-toolbar">
               <div class="btn-group mr-2">
-                <button
+                <!-- <button
                   v-b-tooltip.hover
                   title="Coming Soon"
                   type="button"
                   class="btn btn-sm btn-outline-secondary ml-2"
                 >
                   Export
-                </button>
+                </button> -->
               </div>
             </div>
           </div>

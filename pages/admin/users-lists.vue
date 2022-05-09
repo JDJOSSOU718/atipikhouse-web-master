@@ -30,7 +30,7 @@
               </div>
             </div>
           </div>
-          <AddLocationForm :admin="true" />
+          <UsersList  />
           <div class="container p-5"></div>
         </main>
       </div>
@@ -42,12 +42,12 @@
 import Sidebar from '../../components/admin/Sidebar'
 import auth from '../../middleware/auth'
 import checkAdminGrade from '../../middleware/ckeckAdminGrade'
-import AddLocationForm from '../../components/utils/addLocationForm'
+import UsersList from '../../components/utils/usersList'
 export default {
   layout: 'admin',
   components: {
     Sidebar,
-    AddLocationForm,
+    UsersList,
   },
   middleware: [auth, checkAdminGrade],
   data() {
@@ -236,7 +236,6 @@ export default {
   [role='main'] {
     padding-top: 48px; /* Space for fixed navbar */
   }
-  
 }
 
 @media only screen and (max-width: 600px){

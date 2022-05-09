@@ -35,6 +35,65 @@ export default {
             }
         },
 
+        getGradeName (grade){
+            switch (grade) {
+                case 'owner':
+                    return 'Propriétaire'
+                    break;
+                case 'customer':
+                    return 'Client'
+                    break;
+                case 'administrator':
+                    return 'Gérant'
+                    break;
+                default:
+                    return 'Client'
+                    break;
+            }
+        },
+
+        getGradeBadge(grade){
+            switch (grade) {
+                case 'owner':
+                    return 'primary'
+                    break;
+                case 'customer':
+                    return 'info'
+                    break;
+                case 'administrator':
+                    return 'success'
+                    break;
+            
+                default:
+                    return 'info'
+                    break;
+            }
+        },
+
+        getOnlineName (online){
+            switch (online) {
+                case true:
+                    return 'En ligne'
+                    break;
+
+                default:
+                    return 'Déconnecté'
+                    break;
+            }
+        },
+
+        getOnlineBadge(online){
+            switch (online) {
+                case true:
+                    return 'success'
+                    break;
+                
+                default:
+                    return 'secondary'
+                    break;
+            }
+        },
+
         async getFormatedArrays (arr=[], keys=[]){
             let re = []
             arr.forEach(element => {

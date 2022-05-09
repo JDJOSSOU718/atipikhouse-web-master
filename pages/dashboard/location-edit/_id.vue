@@ -7,7 +7,8 @@
       <div class="container">
         <ul>
           <li><nuxt-link to="/">Accueil</nuxt-link></li>
-          <li>Ajouter une location</li>
+          <li><nuxt-link to="/dashboard">Mon compte</nuxt-link></li>
+          <li>Modification de location</li>
         </ul>
       </div>
     </div>
@@ -33,6 +34,30 @@ import AddLocationForm from '../../../components/utils/addLocationForm'
 export default {
     validate({ params }) {
     return !isNaN(+params.id)
+  },
+  head() {
+    return {
+      title: 'Atypikhouse - Modification de locations',
+      meta: [
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content:
+            'Atypikhouse, Locations, Habitation, En location',
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Atypikhouse louez vos biens en ligne!',
+        },
+        { property: 'og:type', content: 'website' },
+        {
+          property: 'og:description',
+          content: 'Atypikhouse louez vos biens en ligne!',
+        },
+        { property: 'og:image', content: '/icon.png' },
+      ],
+    }
   },
   components: { TopHeader, Menubar, Sidebar, AddLocationForm },
   middleware: [auth, checkGrade],

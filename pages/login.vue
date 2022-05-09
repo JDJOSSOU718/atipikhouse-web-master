@@ -115,6 +115,18 @@ import formUtils from '../mixins/form-utils'
 import BLoader from '../components/common/btnLoader.vue'
 
 export default {
+  head () {
+    return {
+      title: 'Atypikhouse - Connexion',
+      meta: [
+        { hid: 'keywords', name: 'keywords', content: 'Atypikhouse, connexion, page de connexion, Connexion à votre space atypik' },
+        { hid: 'description', name: 'description', content: 'Atypikhouse louez vos biens en ligne!' },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:description', content: 'Atypikhouse louez vos biens en ligne!' },
+        { property: 'og:image', content: '/icon.png' }
+      ],
+    }
+  },
   components: {
     TopHeader,
     Menubar,

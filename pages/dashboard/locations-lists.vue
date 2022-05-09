@@ -7,7 +7,8 @@
       <div class="container">
         <ul>
           <li><nuxt-link to="/">Accueil</nuxt-link></li>
-          <li>Ajouter une location</li>
+          <li><nuxt-link to="/dashboard">Mon compte</nuxt-link></li>
+          <li>Listes des locations</li>
         </ul>
       </div>
     </div>
@@ -31,6 +32,30 @@ import checkGrade from '../../middleware/checkGrade'
 import LocationList from '../../components/utils/locationList'
 
 export default {
+  head() {
+    return {
+      title: 'Atypikhouse - Listes des locations',
+      meta: [
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content:
+            'Atypikhouse, Locations, Habitation, En location',
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Atypikhouse louez vos biens en ligne!',
+        },
+        { property: 'og:type', content: 'website' },
+        {
+          property: 'og:description',
+          content: 'Atypikhouse louez vos biens en ligne!',
+        },
+        { property: 'og:image', content: '/icon.png' },
+      ],
+    }
+  },
   components: { TopHeader, Menubar, Sidebar, LocationList },
   middleware: [auth, checkGrade],
   data() {

@@ -7,6 +7,7 @@
       <div class="container">
         <ul>
           <li><nuxt-link to="/">Accueil</nuxt-link></li>
+          <li><nuxt-link to="/dashbaord">Mon compte</nuxt-link></li>
           <li>Ajouter une location</li>
         </ul>
       </div>
@@ -31,6 +32,30 @@ import checkGrade from '../../middleware/checkGrade'
 import AddLocationForm from '../../components/utils/addLocationForm'
 
 export default {
+  head() {
+    return {
+      title: 'Atypikhouse - Ajout de location',
+      meta: [
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content:
+            'Atypikhouse, Locations, Habitation, En location',
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Atypikhouse louez vos biens en ligne!',
+        },
+        { property: 'og:type', content: 'website' },
+        {
+          property: 'og:description',
+          content: 'Atypikhouse louez vos biens en ligne!',
+        },
+        { property: 'og:image', content: '/icon.png' },
+      ],
+    }
+  },
   components: { TopHeader, Menubar, Sidebar, AddLocationForm },
   middleware: [auth, checkGrade],
   data() {

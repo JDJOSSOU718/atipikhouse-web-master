@@ -36,6 +36,19 @@
               </textarea>
             </div>
           </div>
+          <div class="col-lg-12 col-md-12">
+            <div class="form-group">
+              <label>Adresse *</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Entrer l'adresse"
+                id="haddress"
+                name="haddress"
+                v-model="house.location"
+              />
+            </div>
+          </div>
           <div class="col-lg-6 col-md-12">
             <div class="form-group">
               <label>type</label>
@@ -224,6 +237,7 @@ export default {
         price: this.provData.price ? this.provData.price : 0,
         photos: this.provData.photos ? this.provData.photos : {},
         user_id: this.$store.state.authUser.id,
+        location: this.provData.location ? this.provData.location : '',
         off_days: {},
       },
       disableForm: false,
@@ -346,7 +360,8 @@ export default {
         !this.validateRequiredField(this.house.type) ||
         !this.validateRequiredField(this.house.nbr_couchage) ||
         !this.validateRequiredField(this.house.capacity) ||
-        !this.validateRequiredField(this.house.price)
+        !this.validateRequiredField(this.house.price) ||
+        !this.validateRequiredField(this.house.location)
       ) {
         this.formError =
           'Un ou plusieurs champs requis! veuillez remplir tout les champs comportant *'

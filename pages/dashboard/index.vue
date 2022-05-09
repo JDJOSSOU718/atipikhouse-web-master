@@ -34,6 +34,30 @@ import auth from '../../middleware/auth'
 import checkGrade from '../../middleware/checkGrade'
 
 export default {
+  head() {
+    return {
+      title: 'Atypikhouse - Mon compte',
+      meta: [
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content:
+            'Atypikhouse, Locations, Habitation, En location',
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Atypikhouse louez vos biens en ligne!',
+        },
+        { property: 'og:type', content: 'website' },
+        {
+          property: 'og:description',
+          content: 'Atypikhouse louez vos biens en ligne!',
+        },
+        { property: 'og:image', content: '/icon.png' },
+      ],
+    }
+  },
   components: { TopHeader, Menubar, Sidebar },
   middleware: [auth, checkGrade],
 }

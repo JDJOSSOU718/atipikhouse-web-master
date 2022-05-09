@@ -71,6 +71,30 @@ import users from '../../mixins/users'
 import BLoader from '../../components/common/btnLoader.vue'
 import Cookies from 'js-cookie'
 export default {
+  head() {
+    return {
+      title: 'Atypikhouse - Réinitialisation de mot de passe',
+      meta: [
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content:
+            'Atypikhouse, Locations, Habitation, En location, Réinitialisation',
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Atypikhouse louez vos biens en ligne!',
+        },
+        { property: 'og:type', content: 'website' },
+        {
+          property: 'og:description',
+          content: 'Atypikhouse louez vos biens en ligne!',
+        },
+        { property: 'og:image', content: '/icon.png' },
+      ],
+    }
+  },
   components: {
     TopHeader,
     Menubar,
@@ -104,13 +128,13 @@ export default {
       if (result.success) {
         this.btnLoader = false
         const token = this.uuidv4()
-        Cookies.set(`tempUser_${token}`, JSON.stringify(result.data), 1);
+        Cookies.set(`tempUser_${token}`, JSON.stringify(result.data), 1)
         this.sendmail(
           result.data.email,
           'Réinitialisation de mot de passe',
           `Afin de réinitialiser votre mot de passe veuillez cliquez sur le lien suivant: ${window.location.href}/${token}`
         )
-        
+
         this.$toast.success(
           'Un email de réinitialisation de mot de passe à été envoyer dans votre boite mail.'
         )

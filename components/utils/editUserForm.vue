@@ -36,6 +36,19 @@
               />
             </div>
           </div>
+          <div v-if="!provData.last_name" class="col-lg-12 col-md-12">
+            <div class="form-group">
+              <label>Email *</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Entrer votre email"
+                id="email"
+                name="email"
+                v-model="user.email"
+              />
+            </div>
+          </div>
           <div class="col-lg-6 col-md-12">
             <div class="form-group">
               <label>Téléphone *</label>
@@ -103,7 +116,7 @@
           </div>
           <div class="col-lg-6 col-md-12">
             <div class="form-group">
-              <label>Profile twitter *</label>
+              <label>Profile twitter</label>
               <input
                 type="text"
                 class="form-control"
@@ -133,6 +146,32 @@
               </select>
             </div>
           </div>
+          <div v-if="!provData.last_name" class="col-lg-6 col-md-12">
+            <div class="form-group">
+              <label>Mot de passe *</label>
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Nouveau mot de passe"
+                id="password"
+                name="password"
+                v-model="user.password"
+              />
+            </div>
+          </div>
+          <div v-if="!provData.last_name" class="col-lg-6 col-md-12">
+            <div class="form-group">
+              <label>Confirmation du mot de passe *</label>
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Confirmation du mot de passe"
+                id="Cpassword"
+                name="Cpassword"
+                v-model="user.confirmPass"
+              />
+            </div>
+          </div>
 
           <div class="col-md-12 text-center">
             <button
@@ -141,19 +180,25 @@
               style="width: 60%; display: inline-block"
               :disabled="formDisabled"
             >
-              <span v-if="!btnLoader">Modifier</span>
+              <span v-if="!btnLoader">{{
+                provData.last_name ? 'Modifier' : 'Ajouter'
+              }}</span>
               <BLoader v-else loaderColor="#fff" />
             </button>
           </div>
         </div>
       </form>
     </div>
-    <div class="mt-5 mb-5">
+    <div v-if="provData.last_name" class="mt-5 mb-5">
       <div v-if="!admin" class="section-title">
         <h2><span class="dot"></span>Modifier le mot de passe</h2>
       </div>
 
-      <form class="signup-form" @submit.prevent="updatePass" id="change-password">
+      <form
+        class="signup-form"
+        @submit.prevent="updatePass"
+        id="change-password"
+      >
         <p v-if="password.formError" class="error">
           {{ password.formError }}
         </p>
@@ -215,7 +260,9 @@
     <div class="row mt-2">
       <div class="col-md-12">
         <b-button
-          v-if="$store.state.authUser.grade == 'administrator'"
+          v-if="
+            $store.state.authUser.grade == 'administrator' && provData.last_name
+          "
           v-b-tooltip.hover
           title="Appuyez pour supprimer définitivement cet utilisateur"
           class="float-left"
@@ -226,7 +273,9 @@
       </div>
     </div>
     <Confirmation
-      v-if="$store.state.authUser.grade == 'administrator'"
+      v-if="
+        $store.state.authUser.grade == 'administrator' && provData.last_name
+      "
       @confirmation="delUser"
     />
   </div>
@@ -284,6 +333,9 @@ export default {
               : '',
         },
         grade: this.provData.grade ? this.provData.grade : 'customer',
+        confirmPass: '',
+        password: '',
+        email: '',
       },
       disableForm: false,
       btnLoader: false,
@@ -323,23 +375,64 @@ export default {
         return
       }
 
+      if (!this.provData.lastname && !this.validateEmail(this.user.email)) {
+        this.formError = 'Veuillez entrer une adresse email valide!'
+        this.scrollToTop()
+        return
+      }
+
+      if (
+        !this.provData.lastname &&
+        !this.validatePassword(this.user.password)
+      ) {
+        this.formError =
+          'Mot de passe trop court! Veuillez entrer un mot de passe valide de 8 charactères minimum!'
+        this.scrollToTop()
+        return
+      }
+
+      if (
+        !this.provData.lastname &&
+        !this.validateConfirmPass(this.user.password, this.user.confirmPass)
+      ) {
+        this.formError = 'Mot passe non conforme!'
+        this.scrollToTop()
+        return
+      }
+
       this.btnLoader = true
       this.formDisabled = true
+      if (this.provData && this.provData.last_name) {
+        result = await this.edit(this.user, this.provData.id)
+      } else {
+        let userdata = this.user
+        delete userdata.confirmPass
+        result = await this.add(userdata)
+      }
 
-      result = await this.edit(this.user, this.provData.id)
       if (await result.success) {
         this.btnLoader = false
         this.formDisabled = false
-        this.$toast.success('Informations modifier avec succès.')
+        if (this.provData && this.provData.last_name) {
+          this.$toast.success('Informations modifier avec succès.')
+        } else {
+          this.$toast.success('Utilisateur ajouter avec succès.')
+          this.resetForm();
+        }
         this.formError = null
       } else {
         this.btnLoader = false
         this.formDisabled = false
-        this.$toast.error('Une erreur est survenue lors de la modification.')
+        if (this.provData && this.provData.last_name) {
+          this.$toast.error('Une erreur est survenue lors de la modification.')
+        } else {
+          this.$toast.error("Une erreur est survenue lors de l'ajout.")
+        }
+
         this.formError = null
       }
     },
-    async updatePass(){
+    async updatePass() {
       let result = null
       this.password.formError = null
       if (
@@ -357,58 +450,89 @@ export default {
         return
       }
 
-      if(!this.validateConfirmPass(this.password.data.newPass, this.password.data.cNewPass)){
+      if (
+        !this.validateConfirmPass(
+          this.password.data.newPass,
+          this.password.data.cNewPass
+        )
+      ) {
         this.password.formError =
           'Les mots de passse entrés ne correspondent pas'
         return
       }
       this.password.btnLoader = true
       this.password.formDisabled = true
-      const checkoldPass = await this.login(this.provData.email, this.password.data.oldPass)
+      const checkoldPass = await this.login(
+        this.provData.email,
+        this.password.data.oldPass
+      )
 
       if (checkoldPass.success) {
         let getTokken = this.$store.state.authUser.login_session_token
-        result = await this.updateUserPass(getTokken, this.provData.id, this.password.data.newPass)
+        result = await this.updateUserPass(
+          getTokken,
+          this.provData.id,
+          this.password.data.newPass
+        )
         if (result.success) {
           this.password.btnLoader = false
           this.password.formDisabled = false
           this.$toast.success('Mot de passe modifier avec succès.')
-          this.password.formError=null
-          this.resetForm()
-        }else{
+          this.password.formError = null
+          this.resetPassForm()
+        } else {
           this.password.btnLoader = false
           this.password.formDisabled = false
-          this.password.formError=null
+          this.password.formError = null
           this.$toast.error('Une erreur est survenue lors de la modification.')
         }
-      }else{
+      } else {
         this.password.btnLoader = false
         this.password.formDisabled = false
-        this.password.formError=null
+        this.password.formError = null
         this.$toast.error('Ancien mot de passe incorrect.')
       }
-
     },
-    resetForm() {
+    resetPassForm() {
       this.password.data = {
         oldPass: '',
         newPass: '',
         cNewPass: '',
       }
     },
+    resetForm() {
+      this.user = {
+        lastname: '',
+        firstname: '',
+        address: '',
+        phone: '',
+        social_link: {
+          0: '',
+          1: '',
+          2: '',
+          3: '',
+        },
+        grade: 'customer',
+        confirmPass: '',
+        password: '',
+        email: '',
+      }
+    },
     showConfirmation() {
       this.$bvModal.show('confirmation-modal')
     },
     async delUser(confirmation) {
-      if(!confirmation){
-        return;
+      if (!confirmation) {
+        return
       }
       const result = this.deleteUser(this.provData.id)
       if (result) {
         this.$toast.success('Utiliateur supprimer avec succès.')
-        that.$router.push('/admin')
-      }else{
-        this.$toast.error('Une erreur est survenue. Veuillez réessayer plutard!')
+        this.$router.push('/admin')
+      } else {
+        this.$toast.error(
+          'Une erreur est survenue. Veuillez réessayer plutard!'
+        )
       }
     },
   },

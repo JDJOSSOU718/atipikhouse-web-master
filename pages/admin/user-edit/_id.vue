@@ -30,7 +30,7 @@
               </div>
             </div>
           </div>
-          <AddLocationForm :admin="true" />
+          <EditUserForm :provData="user" :admin="true" />
           <div class="container p-5"></div>
         </main>
       </div>
@@ -39,19 +39,31 @@
 </template>
 
 <script>
-import Sidebar from '../../components/admin/Sidebar'
-import auth from '../../middleware/auth'
-import checkAdminGrade from '../../middleware/ckeckAdminGrade'
-import AddLocationForm from '../../components/utils/addLocationForm'
+import Sidebar from '../../../components/admin/Sidebar'
+import auth from '../../../middleware/auth'
+import checkAdminGrade from '../../../middleware/ckeckAdminGrade'
+import EditUserForm from '../../../components/utils/editUserForm.vue'
 export default {
+  validate({ params }) {
+    return params.id != '' ? true : false;
+  },
   layout: 'admin',
   components: {
     Sidebar,
-    AddLocationForm,
+    EditUserForm,
   },
   middleware: [auth, checkAdminGrade],
-  data() {
-    return {
+ async asyncData({ params, error, $axios, store }) {
+    const data = await $axios.$get(
+      `${store.state.apiBaseUrl}/api/v1/users/${params.id}`
+    )
+    if (data.success) {
+      return {
+        user: data.data,
+        user_id: params.id,
+      }
+    } else {
+      error({ statusCode: 404, message: 'Utilisateur non trouvé' })
     }
   },
 }
@@ -236,9 +248,7 @@ export default {
   [role='main'] {
     padding-top: 48px; /* Space for fixed navbar */
   }
-  
 }
-
 @media only screen and (max-width: 600px){
     .sidebar{
       position: relative !important;

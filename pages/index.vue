@@ -33,12 +33,12 @@ export default {
   },
   head () {
     return {
-      title: 'Atipikhouse',
+      title: 'Atypikhouse',
       meta: [
-        { hid: 'keywords', name: 'keywords', content: 'Atipikhouse, Locations, Habitation, En location' },
-        { hid: 'description', name: 'description', content: 'Atipikhouse vendez vos biens en ligne!' },
+        { hid: 'keywords', name: 'keywords', content: 'Atypikhouse, Locations, Habitation, En location' },
+        { hid: 'description', name: 'description', content: 'Atypikhouse louez vos biens en ligne!' },
         { property: 'og:type', content: 'website' },
-        { property: 'og:description', content: 'Atipikhouse vendez vos biens en ligne!' },
+        { property: 'og:description', content: 'Atypikhouse louez vos biens en ligne!' },
         { property: 'og:image', content: '/icon.png' }
       ],
     }

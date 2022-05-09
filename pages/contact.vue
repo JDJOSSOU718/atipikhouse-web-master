@@ -162,9 +162,33 @@ import TopHeader from '../layouts/TopHeader'
 import Menubar from '../layouts/Menubar'
 
 export default {
+  head() {
+    return {
+      title: 'Atypikhouse - Contactez-nous',
+      meta: [
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content:
+            'Atypikhouse, Locations, Habitation, En location, Ecrivez-nous, Contacts, Contacts AtypikHouse',
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Atypikhouse louez vos biens en ligne!',
+        },
+        { property: 'og:type', content: 'website' },
+        {
+          property: 'og:description',
+          content: 'Atypikhouse louez vos biens en ligne!',
+        },
+        { property: 'og:image', content: '/icon.png' },
+      ],
+    }
+  },
   components: {
     TopHeader,
     Menubar,
-  }
+  },
 }
 </script>

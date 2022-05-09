@@ -141,6 +141,21 @@ export default {
                     }
                 }
             )
+        },
+
+        async getUsers () {
+            const getTokken = this.$store.state.authUser.login_session_token
+            return await this.$axios.$get(
+                `${this.baseUrl}/api/v1/users/`,
+                {
+                    withCredentials: false,
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                        authorization: getTokken
+                    }
+                }
+            )
+
         }
     }
 }

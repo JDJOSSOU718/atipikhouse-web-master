@@ -38,6 +38,30 @@ import Details from '../../components/products/Details'
 import DetailsInfo from '../../components/products/DetailsInfo'
 import RelatedProducts from '../../components/products/RelatedProducts'
 export default {
+  head() {
+    return {
+      title: 'Atypikhouse - ',
+      meta: [
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content:
+            'Atypikhouse, Locations, Habitation, En location, Réinitialisation',
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Atypikhouse louez vos biens en ligne!',
+        },
+        { property: 'og:type', content: 'website' },
+        {
+          property: 'og:description',
+          content: 'Atypikhouse louez vos biens en ligne!',
+        },
+        { property: 'og:image', content: '/icon.png' },
+      ],
+    }
+  },
   components: {
     ProductImages,
     Details,
