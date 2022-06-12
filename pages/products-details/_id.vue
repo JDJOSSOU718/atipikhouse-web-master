@@ -1,11 +1,13 @@
 <template>
   <div>
+    <TopHeader />
+    <Menubar />
     <!-- Start Page Title Area -->
     <div class="page-title-area">
       <div class="container">
         <ul>
-          <li><nuxt-link to="/">Home</nuxt-link></li>
-          <li>{{ product.name }}</li>
+          <li><nuxt-link to="/">Accueil</nuxt-link></li>
+          <li>{{ house.title }}</li>
         </ul>
       </div>
     </div>
@@ -15,15 +17,12 @@
     <div class="products-details-area ptb-60">
       <div class="container">
         <div class="row">
-          <ProductImages />
+          <ProductImages :images="house.photos" />
           <Details
-            :id="product.id"
-            :name="product.name"
-            :price="product.price"
-            :image="product.image"
+            :house="house"
           />
-          <DetailsInfo />
-          <RelatedProducts :id="product.id" />
+          <DetailsInfo :description="house.description" :house="house.id" :comments="comments" />
+          <RelatedProducts :type="house.type" />
         </div>
       </div>
     </div>
@@ -33,14 +32,21 @@
 
 
 <script>
+import TopHeader from '../../layouts/TopHeader'
+import Menubar from '../../layouts/Menubar'
 import ProductImages from '../../components/products/ProductImages'
 import Details from '../../components/products/Details'
 import DetailsInfo from '../../components/products/DetailsInfo'
 import RelatedProducts from '../../components/products/RelatedProducts'
+import users from '../../mixins/users'
+import comments from '../../mixins/comments'
 export default {
+  validate({ params }) {
+    return !isNaN(+params.id)
+  },
   head() {
     return {
-      title: 'Atypikhouse - ',
+      title: 'Atypikhouse - '+ this.house.title,
       meta: [
         {
           hid: 'keywords',
@@ -63,22 +69,37 @@ export default {
     }
   },
   components: {
+    TopHeader,
+    Menubar,
     ProductImages,
     Details,
     DetailsInfo,
     RelatedProducts,
   },
-  data() {
-    return {
-      id: this.$route.params.id,
+  mixins: [users, comments],
+  async asyncData({ params, error, $axios, store }) {
+    const data = await $axios.$get(
+      `${store.state.apiBaseUrl}/api/v1/houses/${params.id}`
+    )
+    if (data.success) {
+      return {
+        house: data.data,
+        house_id: params.id,
+        comments: []
+      }
+    } else {
+      error({ statusCode: 404, message: 'Biens non trouvé' })
     }
   },
-  computed: {
-    product() {
-      return this.$store.state.products.all.find(
-        (product) => product.id === parseInt(this.id)
-      )
-    },
-  },
+
+  async created(){
+    const data = await this.getHouseComment(this.$route.params.id)
+
+    if (data) {
+      this.comments = data.filter((item) => {
+          return item.status == 'publish'
+        })
+    }
+  }
 }
 </script>

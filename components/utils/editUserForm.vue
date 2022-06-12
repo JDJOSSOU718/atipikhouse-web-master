@@ -333,6 +333,8 @@ export default {
               : '',
         },
         grade: this.provData.grade ? this.provData.grade : 'customer',
+        city: this.provData.city ? this.provData.city : '',
+        country: this.provData.country ? this.provData.country : '',
         confirmPass: '',
         password: '',
         email: '',
@@ -375,14 +377,14 @@ export default {
         return
       }
 
-      if (!this.provData.lastname && !this.validateEmail(this.user.email)) {
+      if (!this.provData.last_name && !this.validateEmail(this.user.email)) {
         this.formError = 'Veuillez entrer une adresse email valide!'
         this.scrollToTop()
         return
       }
 
       if (
-        !this.provData.lastname &&
+        !this.provData.last_name &&
         !this.validatePassword(this.user.password)
       ) {
         this.formError =
@@ -392,7 +394,7 @@ export default {
       }
 
       if (
-        !this.provData.lastname &&
+        !this.provData.last_name &&
         !this.validateConfirmPass(this.user.password, this.user.confirmPass)
       ) {
         this.formError = 'Mot passe non conforme!'
@@ -403,11 +405,11 @@ export default {
       this.btnLoader = true
       this.formDisabled = true
       if (this.provData && this.provData.last_name) {
-        result = await this.edit(this.user, this.provData.id)
+        let { firstname, lastname, address, phone, grade, social_link } = this.user
+        result = await this.edit({ firstname, lastname, address, phone, grade, social_link }, this.provData.id)
       } else {
-        let userdata = this.user
-        delete userdata.confirmPass
-        result = await this.add(userdata)
+        let { firstname, lastname, address, phone, grade, social_link, email, password } = this.user
+        result = await this.add({ firstname, lastname, address, phone, grade, social_link, email, password })
       }
 
       if (await result.success) {

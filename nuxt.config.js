@@ -27,6 +27,9 @@ export default {
                 href:
                     'https://fonts.googleapis.com/css?family=Archivo:400,400i,500,500i,600,600i,700,700i&display=swap'
             }
+        ],
+        script: [
+            { src: 'https://js.stripe.com/v3'}
         ]
     },
     /*
@@ -46,7 +49,9 @@ export default {
         { src: '~/plugins/vue-carousel', ssr: false },
         { src: '~/plugins/vue-backtotop', ssr: false },
         { src: '~/plugins/vue-toastification', ssr: false },
-        { src: '~/plugins/vueperslides', ssr: false }
+        { src: '~/plugins/vueperslides', ssr: false },
+        { src: '~/plugins/vue-calendar', ssr: false },
+        { src: '~/plugins/vue-stripe', ssr: false }
     ],
     /*
      ** Nuxt.js dev-modules

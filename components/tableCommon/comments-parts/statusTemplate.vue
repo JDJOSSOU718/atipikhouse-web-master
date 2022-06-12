@@ -7,7 +7,7 @@
   </span>
 </template>
 <script>
-import utils from '../../mixins/utils'
+import utils from '../../../mixins/utils'
 export default {
   props: ['rowIndex', 'model'],
   name: 'StatusFormatedTemplate',

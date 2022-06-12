@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12 col-md-12">
-          <form>
+          <form v-if="cart.length > 0">
             <div class="cart-table table-responsive">
               <table class="table table-bordered">
                 <thead>
@@ -67,7 +67,7 @@
 
                     <ul>
                       <li>
-                        Subtotal <span>${{ cartTotal }}</span>
+                        Sous-total <span>{{ cartTotal }}€</span>
                       </li>
                       <li>
                         Total
@@ -86,6 +86,12 @@
               </div>
             </div>
           </form>
+          <h6 class="text-center">Aucun biens dans le panier.</h6>
+          <div class="col-md-12 text-center mt-3">
+               <nuxt-link to="/products" class="btn btn-primary"
+                      >Listes des Biens</nuxt-link
+                    >
+          </div>
         </div>
       </div>
     </div>

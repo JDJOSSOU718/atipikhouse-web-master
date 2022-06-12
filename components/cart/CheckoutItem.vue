@@ -5,7 +5,7 @@
       <div class="container">
         <ul>
           <li><nuxt-link to="/">Accueil</nuxt-link></li>
-          <li>Panier</li>
+          <li>Caisse</li>
         </ul>
       </div>
     </div>
@@ -17,25 +17,25 @@
         <div class="row">
           <div class="col-lg-12 col-md-12">
             <div class="user-actions">
-              <i class="fas fa-sign-in-alt"></i>
-              <span
-                >Returning customer?
-                <nuxt-link to="/login">Click here to login</nuxt-link></span
-              >
+              <p v-if="formError" class="error">
+                {{ formError }}
+              </p>
             </div>
           </div>
         </div>
 
-        <form>
+        <form v-if="$store.state.authUser">
           <div class="row">
             <div class="col-lg-6 col-md-12">
               <div class="billing-details">
-                <h3 class="title">Billing Details</h3>
+                <h3 class="title">Details de réservation</h3>
 
                 <div class="row">
                   <div class="col-lg-12 col-md-6">
                     <div class="form-group">
-                      <label>Full Name <span class="required">*</span></label>
+                      <label
+                        >Nom et prénoms <span class="required">*</span></label
+                      >
                       <input
                         type="text"
                         id="fullName"
@@ -47,7 +47,7 @@
 
                   <div class="col-lg-12 col-md-6">
                     <div class="form-group">
-                      <label>Address <span class="required">*</span></label>
+                      <label>Adresse <span class="required">*</span></label>
                       <input
                         type="text"
                         id="address"
@@ -57,23 +57,9 @@
                     </div>
                   </div>
 
-                  <div class="col-lg-12 col-md-6">
-                    <div class="form-group">
-                      <label>Town / City <span class="required">*</span></label>
-                      <input
-                        type="text"
-                        id="city"
-                        v-model="personDetails.city"
-                        class="form-control"
-                      />
-                    </div>
-                  </div>
-
                   <div class="col-lg-6 col-md-6">
                     <div class="form-group">
-                      <label
-                        >Email Address <span class="required">*</span></label
-                      >
+                      <label>Email <span class="required">*</span></label>
                       <input
                         type="email"
                         id="email"
@@ -85,7 +71,7 @@
 
                   <div class="col-lg-6 col-md-6">
                     <div class="form-group">
-                      <label>Phone <span class="required">*</span></label>
+                      <label>Téléphone <span class="required">*</span></label>
                       <input
                         type="text"
                         id="phone"
@@ -93,6 +79,20 @@
                         class="form-control"
                       />
                     </div>
+                  </div>
+                  <div class="col-lg-12 col-md-6">
+                    <label
+                      >Date de réservation
+                      <span class="required">*</span></label
+                    >
+                    <vc-date-picker
+                      color="green"
+                      :columns="$screens({ default: 1, laptop: 2, desktop: 2 })"
+                      is-range
+                      :attributes="calendarAttrs"
+                      :disabled-dates="offDays"
+                      v-model="personDetails.bookingDate"
+                    />
                   </div>
                 </div>
               </div>
@@ -141,9 +141,7 @@
                         </td>
 
                         <td class="product-subtotal">
-                          <span class="subtotal-amount"
-                            >${{ parseFloat(cartTotal).toFixed(2) }}</span
-                          >
+                          <span class="subtotal-amount">${{ cartTotal }}</span>
                         </td>
                       </tr>
                     </tbody>
@@ -151,45 +149,46 @@
                 </div>
 
                 <div class="payment-method">
-                  <p>
-                    <input
-                      type="radio"
-                      id="direct-bank-transfer"
-                      name="radio-group"
-                      checked
-                    />
-                    <label for="direct-bank-transfer"
-                      >Direct Bank Transfer</label
-                    >
-
-                    Make your payment directly into our bank account. Please use
-                    your Order ID as the payment reference. Your order will not
-                    be shipped until the funds have cleared in our account.
-                  </p>
-                  <p>
-                    <input type="radio" id="paypal" name="radio-group" />
-                    <label for="paypal">PayPal</label>
-                  </p>
-                  <p>
-                    <input
-                      type="radio"
-                      id="cash-on-delivery"
-                      name="radio-group"
-                    />
-                    <label for="cash-on-delivery">Cash on Delivery</label>
-                  </p>
+                  <div class="row">
+                    <div class="col-12 form-group">
+                      <label>Carte No.</label>
+                      <div id="card-number"></div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                      <label>Carte Exp.</label>
+                      <div id="card-expiry"></div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                      <label>Carte CVC</label>
+                      <div id="card-cvc"></div>
+                    </div>
+                    <div class="col-12 form-group">
+                      <div id="card-error"></div>
+                    </div>
+                  </div>
+                  <p></p>
                 </div>
 
                 <a
                   href="javascript:void(0)"
                   @click="add"
                   class="btn btn-primary order-btn"
-                  >Place Order</a
-                >
+                  :disabled="formDisabled"
+                  ><span v-if="!btnLoader">RESERVER</span
+                  ><BLoader v-else loaderColor="#fff"
+                /></a>
               </div>
             </div>
           </div>
         </form>
+        <div v-else class="row">
+          <div class="col-12 text-center">
+            <h6>Veuillez vous connectez pour effectuer votre réservation</h6>
+            <nuxt-link to="/login" class="btn btn-primary mt-3"
+              >Connexion</nuxt-link
+            >
+          </div>
+        </div>
       </div>
     </div>
     <!-- End Checkout Area -->
@@ -197,17 +196,57 @@
 </template>
 
 <script>
+import BLoader from '../../components/common/btnLoader'
+import formUtils from '../../mixins/form-utils'
+import booking from '../../mixins/booking'
 export default {
+  props: {
+    intentKey: {
+      type: String,
+      default: '',
+    },
+    user: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
+  components: { BLoader },
+  mixins: [formUtils, booking],
   data() {
     return {
       personDetails: {
-        fullName: 'John Doe',
-        address: 'Town hall, av 02',
-        city: 'New York',
-        email: 'john@gmail.com',
-        phone: '+990198378372',
-        createdAt: new Date(),
+        fullName: this.user.last_name
+          ? `${this.user.first_name} ${this.user.last_name}`
+          : '',
+        address: this.user.address ? this.user.address : '',
+        email: this.user.email ? this.user.email : '',
+        phone: this.user.phone ? this.user.phone : '',
+        bookingDate: {
+          start: null,
+          end: null,
+        },
       },
+      elementsOptions: {
+        clientSecret: this.intentKey,
+        appearance: {},
+      },
+      btnLoader: false,
+      cardNumber: null,
+      cardExpiry: null,
+      cardCvc: null,
+      formError: null,
+      calendarAttrs: [
+        {
+          key: 'today',
+          dot: true,
+          dates: new Date(),
+          popover: {
+            label: "Aujourd'hui",
+          },
+        },
+      ],
+      offDays: [],
+      formDisabled: false,
     }
   },
   computed: {
@@ -217,15 +256,201 @@ export default {
     cartTotal() {
       return this.$store.getters.totalAmount
     },
+    stripeElements() {
+      return this.$stripe.elements()
+    },
   },
   methods: {
-    add() {
-      this.$toast.success(`Thanks for the order`, {
-        icon: 'fas fa-cart-plus',
-      })
-      this.$store.dispatch('cartEmpty')
-      this.$router.push('/')
+    async add() {
+      this.formError = null
+      if (
+        !this.validateRequiredField(this.personDetails.fullName) ||
+        !this.validateRequiredField(this.personDetails.address) ||
+        !this.validateRequiredField(this.personDetails.email) ||
+        !this.validateRequiredField(this.personDetails.phone)
+      ) {
+        this.formError =
+          'Un ou plusieurs champs requis! veuillez remplir tout les champs comportant *'
+        this.scrollToTop()
+        return
+      }
+
+      if (
+        this.personDetails.bookingDate.start == null ||
+        this.personDetails.bookingDate.end == null
+      ) {
+        console.log(this.personDetails.bookingDate.end)
+        this.formError = 'Veuillez selectionner une date de réservation'
+        this.scrollToTop()
+        return
+      }
+      this.btnLoader = true
+      this.formDisabled = true
+      const payValidate = await this.validatePay()
+      if (payValidate) {
+        let datar = {
+          price: `${this.cartTotal}`,
+          start_date: this.$moment(this.personDetails.bookingDate.start).unix(),
+          end_date: this.$moment(this.personDetails.bookingDate.end).unix(),
+          house: this.cart[0].id,
+          user_id: this.user.id,
+          reserved_names: this.personDetails.fullName,
+          billing_details: this.personDetails,
+        }
+        const getTokken = this.$store.state.authUser.login_session_token,
+          self = this
+        this.$axios
+          .$post(`${process.env.APIBASEURI}/api/v1/booking`, datar, {
+            withCredentials: false,
+            headers: {
+              'Access-Control-Allow-Origin': '*',
+              authorization: getTokken,
+            },
+          })
+          .then((response) => {
+            if (response.success == true) {
+              self.$toast.success(
+                `Réservation effectuer avec succès! Merci pour votre commande`,
+                {
+                  icon: 'fas fa-cart-plus',
+                }
+              )
+              self.btnLoader = false
+              self.formDisabled = false
+              self.$store.dispatch('cartEmpty')
+              self.$router.push('/')
+            } else {
+              self.btnLoader = false
+              self.formDisabled = false
+              self.$toast.error(
+                `Une erreur s'est produite lors de la réservation. Veuillez réessayer plus tard.`,
+                {
+                  icon: 'fas fa-times',
+                }
+              )
+            }
+          })
+
+        // if ((await result.success) == true) {
+        //   self.$toast.success(
+        //     `Réservation effectuer avec succès! Merci pour votre commande`,
+        //     {
+        //       icon: 'fas fa-cart-plus',
+        //     }
+        //   )
+        //   self.btnLoader = false
+        //   self.formDisabled = false
+        //   self.$store.dispatch('cartEmpty')
+        //   self.$router.push('/')
+        // } else {
+        //   self.btnLoader = false
+        //   self.formDisabled = false
+        //   self.$toast.error(
+        //     `Une erreur s'est produite lors de la réservation. Veuillez réessayer plus tard.`,
+        //     {
+        //       icon: 'fas fa-times',
+        //     }
+        //   )
+        // }
+      } else {
+        this.btnLoader = false
+        this.formDisabled = false
+      }
     },
+    async validatePay() {
+      const { error, paymentIntent } = await this.$stripe.confirmCardPayment(
+        this.elementsOptions.clientSecret,
+        {
+          payment_method: {
+            card: this.cardNumber,
+            billing_details: {
+              name: this.personDetails.fullName,
+              email: this.personDetails.email,
+              phone: this.personDetails.phone,
+            },
+          },
+        }
+      )
+      if (error && error != null) {
+        switch (error.code) {
+          case 'payment_intent_unexpected_state':
+            this.$toast.error(
+              `Une erreur s'est produite lors du paiement. Vérifiez les informations de votre carte.`,
+              {
+                icon: 'fas fa-times',
+              }
+            )
+            return false
+            break
+          case 'card_declined':
+            if (error.decline_code == 'insufficient_funds') {
+              this.$toast.error(
+                `Found insuffisant!. Veuillez Vérifier les informations de votre carte.`,
+                {
+                  icon: 'fas fa-times',
+                }
+              )
+              return false
+            }
+            this.$toast.error(
+              `Votre carte est rejeté. Veuillez Vérifier les informations de votre carte.`,
+              {
+                icon: 'fas fa-times',
+              }
+            )
+            return false
+            break
+        }
+      }
+
+      if (paymentIntent) {
+        return true
+      }
+    },
+    getcartOffDays() {
+      let ofd = []
+      this.$store.getters.cart.forEach((element) => {
+        if (Array.isArray(element.off_days)) {
+          ofd = ofd.concat(element.off_days)
+        }
+      })
+
+      return [...new Set(ofd)]
+    },
+  },
+  mounted() {
+    const style = {
+      base: {
+        color: '#222222',
+        fontSmoothing: 'antialiased',
+        fontSize: '14px',
+        '::placeholder': {
+          color: '#aab7c4',
+        },
+      },
+      invalid: {
+        color: '#fa755a',
+        iconColor: '#fa755a',
+      },
+    }
+    this.cardNumber = this.stripeElements.create('cardNumber', {
+      style,
+    })
+    this.cardNumber.mount('#card-number')
+    this.cardExpiry = this.stripeElements.create('cardExpiry', {
+      style,
+    })
+    this.cardExpiry.mount('#card-expiry')
+    this.cardCvc = this.stripeElements.create('cardCvc', { style })
+    this.cardCvc.mount('#card-cvc')
+  },
+  created() {
+    this.offDays = this.getCalendarOffDays(this.getcartOffDays())
+  },
+  beforeDestroy() {
+    this.cardNumber.destroy()
+    this.cardExpiry.destroy()
+    this.cardCvc.destroy()
   },
 }
 </script>

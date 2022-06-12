@@ -58,7 +58,6 @@ export default {
                 return true
             } else {
                 for (let index = 0; index < file.length; index++) {
-                    
                     if (!re.test(file[index].name)) {
                         return false
                     }
@@ -71,36 +70,67 @@ export default {
             return /[.]/.exec(filename) ? /[^.]+$/.exec(filename) : false
         },
 
-        keepFilesArrays(fileList){
+        keepFilesArrays(fileList) {
             let namesArrays = []
             for (let index = 0; index < fileList.length; index++) {
                 namesArrays.push(fileList[index].name)
             }
-            return namesArrays;
+            return namesArrays
         },
 
-        validatePrice(price){
-            var re = /^\d+(?:[.,]\d+)*$/gm;
-            if(parseFloat(price) == NaN) return false
+        validatePrice(price) {
+            var re = /^\d+(?:[.,]\d+)*$/gm
+            if (parseFloat(price) == NaN) return false
             if (re.test(price) == false) {
                 return false
-            }else{
+            } else {
                 return true
             }
         },
 
         uuidv4() {
-            return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-              (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-            );
-          },
-        validateUuid(uuid){
+            return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+                (
+                    c ^
+                    (crypto.getRandomValues(new Uint8Array(1))[0] &
+                        (15 >> (c / 4)))
+                ).toString(16)
+            )
+        },
+        validateUuid(uuid) {
             let r = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
             if (!r.test(uuid)) {
-                return false;
-            }else{
-                return true;
+                return false
+            } else {
+                return true
             }
+        },
+        getDatesInRange(startDate, endDate) {
+            const date = new Date(startDate.getTime())
+
+            const dates = []
+
+            while (date <= endDate) {
+                dates.push(parseInt(date.getTime() / 1000))
+                date.setDate(date.getDate() + 1)
+            }
+            return dates
+        },
+        getOffDayObject(timeStamp) {
+            return {
+                start: new Date(timeStamp * 1000),
+                end: new Date(timeStamp * 1000)
+            }
+        },
+        getCalendarOffDays($timestampOffDays = []) {
+            let $return = [],
+                self = this
+            if (Array.isArray($timestampOffDays)) {
+                $timestampOffDays.forEach(el => {
+                    $return.push(self.getOffDayObject(el))
+                })
+            }
+            return $return
         }
     }
 }

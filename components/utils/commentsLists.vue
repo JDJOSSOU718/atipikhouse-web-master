@@ -2,7 +2,7 @@
   <div class="container">
     <div class="">
       <div v-if="!admin" class="section-title">
-        <h2><span class="dot"></span>Listes des biens</h2>
+        <h2><span class="dot"></span>Listes des commentaires</h2>
       </div>
     </div>
     <div class="col-lg-12">
@@ -10,6 +10,7 @@
         <v-grid
         v-if="tableDataReady"
           theme="compact"
+          
           :readonly="true"
           :canFocus="false"
           :filter="true"
@@ -30,10 +31,9 @@
 
 <script>
 import VGrid, { VGridVueTemplate } from '@revolist/vue-datagrid'
-import statusFormatedTemplate from '../tableCommon/locations-parts/statusFormatedTemplate'
-import actionTemplate from '../tableCommon/locations-parts/actionTemplate'
-import titleTemplate from '../tableCommon/locations-parts/titleTemplate'
-import houses from '../../mixins/houses'
+import statusFormatedTemplate from '../tableCommon/comments-parts/statusTemplate'
+import actionTemplate from '../tableCommon/comments-parts/actionTemplate'
+import comments from '../../mixins/comments'
 export default {
   props: {
     admin: {
@@ -42,16 +42,15 @@ export default {
     },
   },
   components: { VGrid },
-  mixins: [houses],
+  mixins: [comments],
   data() {
     return {
       columns: [
         {
-          prop: 'title',
-          name: 'Titre',
-          sortable: true,
+          prop: 'content',
+          name: 'Commentatire',
+          sortable: false,
           size: 250,
-          cellTemplate: VGridVueTemplate(titleTemplate),
           cellProperties: () => {
             return {
               class: {
@@ -63,7 +62,7 @@ export default {
         {
           name: 'Status',
           prop: 'status',
-          size: 100,
+          size: 120,
           sortable: true,
           cellTemplate: VGridVueTemplate(statusFormatedTemplate),
           cellProperties: () => {
@@ -75,26 +74,10 @@ export default {
           },
         },
         {
-          name: 'Type',
-          prop: 'type',
+          name: 'Biens',
+          prop: 'title',
           sortable: true,
           size: 150,
-          cellProperties: () => {
-            return {
-              class: {
-                "p-2": true,
-              },
-            }
-          },
-        },
-        {
-          name: 'Prix (€)',
-          prop: 'price',
-          sortable: true,
-          size: 100,
-          cellTemplate: (createElement, props) => {
-            return createElement('span', {}, props.model.price + ' €')
-          },
           cellProperties: () => {
             return {
               class: {
@@ -160,9 +143,7 @@ export default {
       this.loading = true
       let result = false
       if(this.admin){
-        result = await this.getHouses()
-      }else{
-        result = await this.getUserHouse()
+        result = await this.getComments()
       }
       
       if (await result) {

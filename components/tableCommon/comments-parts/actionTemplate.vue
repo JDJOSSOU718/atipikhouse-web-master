@@ -10,9 +10,9 @@ export default {
   methods: {
       goToEdit(id){
           if(this.$nuxt.$store.state.authUser.grade !== 'administrator' ){
-              this.$nuxt.$options.router.push(`/dashboard/location-edit/${id}`)
+              this.$nuxt.$options.router.push(`/dashboard/comment-edit/${id}`)
           }else{
-              this.$nuxt.$options.router.push(`/admin/location-edit/${id}`)
+              this.$nuxt.$options.router.push(`/admin/comment-edit/${id}`)
           }
           
       },

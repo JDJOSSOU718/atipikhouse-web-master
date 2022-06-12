@@ -182,6 +182,8 @@ export default {
         social_link: {},
         password: '',
         confirmPass: '',
+        city: '',
+        country: ''
       },
       formError: null,
       btnLoader: false,

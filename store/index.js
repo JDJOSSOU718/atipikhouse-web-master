@@ -26,7 +26,7 @@ export const totals = paylodArr => {
         .reduce((a, b) => a + b, 0)
 
     return {
-        amount: totalAmount.toFixed(2),
+        amount: totalAmount,
         qty: totalQuantity
     }
 }

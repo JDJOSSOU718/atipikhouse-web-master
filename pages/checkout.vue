@@ -2,7 +2,8 @@
   <div>
     <TopHeader />
     <Menubar />
-    <CheckoutItem />
+    <CheckoutItem v-if="payIntent.length > 0" :intentKey="payIntent" :user="$store.state.authUser" />
+    <CheckoutNotLogged v-else />
   </div>
 </template>
 
@@ -10,6 +11,7 @@
 import TopHeader from '../layouts/TopHeader'
 import Menubar from '../layouts/Menubar'
 import CheckoutItem from '../components/cart/CheckoutItem'
+import CheckoutNotLogged from '../components/cart/CheckoutNotLogged'
 export default {
   head() {
     return {
@@ -39,6 +41,44 @@ export default {
     TopHeader,
     Menubar,
     CheckoutItem,
+    CheckoutNotLogged,
   },
+  data(){
+    return{
+      payIntent: '',
+    }
+  },
+  methods:{
+    async generatePaymentIntent() {
+      const getTokken = this.$store.state.authUser.login_session_token
+      let data = {
+        amount: this.$store.getters.totalAmount,
+        currency: 'eur',
+        paymentType: 'card',
+      }
+      const result = await this.$axios.$post(
+        `${process.env.APIBASEURI}/api/v1/booking/payintentment/`,
+        data,
+        {
+          withCredentials: false,
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            authorization: getTokken,
+          },
+        }
+      )
+      if (result.success) {
+       return  result.data
+      }else{
+        return false
+      }
+    },
+  },
+  async created(){
+    if(this.$store.state.authUser){
+      this.payIntent = await this.generatePaymentIntent();
+      console.log(this.payIntent)
+    }
+  }
 }
 </script>

@@ -9,8 +9,6 @@
     <Testimonials></Testimonials>
     <Subscribe></Subscribe>
     <Facility></Facility>
-    <Partner></Partner>
-    <InstagramPhotos></InstagramPhotos>
   </div>
 </template>
 
@@ -24,12 +22,10 @@ import Facility from '../components/common/Facility';
 import BestSellers from '../components/diction-two/BestSellers'
 import Testimonials from '../components/common/Testimonials';
 import Subscribe from '../components/common/Subscribe';
-import Partner from '../components/common/Partner';
-import InstagramPhotos from '../components/common/InstagramPhotos';
 
 export default {
   components: {
-    TopHeader, Menubar, Banner, AlowYourStyle, Offer, Facility, Testimonials, BestSellers, Subscribe, Partner, InstagramPhotos
+    TopHeader, Menubar, Banner, AlowYourStyle, Offer, Facility, Testimonials, BestSellers, Subscribe
   },
   head () {
     return {

@@ -3,11 +3,11 @@
         <div class="col-lg-6 col-md-6">
             <div class="products-page-gallery">
                 <div class="product-page-gallery-main">
-                    <vueper-slides
+                    <vueper-slides v-if="images[0]"
                         :bullets = "false"
                     >
                         <vueper-slide
-                            v-for="(img, i) in images"
+                            v-for="(img, i) in imagesList"
                             :key="i"
                             :image="img.image" />
                     </vueper-slides>
@@ -19,39 +19,25 @@
 
 <script>
 export default {
+    props:{
+        images: {
+            type: Object,
+        },
+    },
     data(){
-        return{
-            images: [
-                {
-                    id: 1,
-                    image: require('../../assets/img/img1.jpg')
-                },
-                {
-                    id: 2,
-                    image: require('../../assets/img/img2.jpg')
-                },
-                {
-                    id: 3,
-                    image: require('../../assets/img/img3.jpg')
-                },
-                {
-                    id: 4,
-                    image: require('../../assets/img/img4.jpg')
-                },
-                {
-                    id: 5,
-                    image: require('../../assets/img/img5.jpg')
-                },
-                {
-                    id: 7,
-                    image: require('../../assets/img/img7.jpg')
-                },
-                {
-                    id: 8,
-                    image: require('../../assets/img/img8.jpg')
-                },
-            ]
+        return {
+            imagesList: []
         }
+    },
+    created(){
+        let returned = []
+
+        if(this.images[0]){
+            for (const img in this.images){
+                returned.push({id: img, image: this.images[img]})
+            }
+        }
+        this.imagesList = returned
     }
 }
 </script>

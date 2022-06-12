@@ -110,6 +110,18 @@
               </div>
             </div>
           </div>
+          <div class="col-lg-12 col-md-12">
+            <div class="form-group">
+              <label>Jours d'indisponibilité </label>
+              <vc-date-picker
+                color="green"
+                :columns="$screens({ default: 1, laptop: 2, desktop: 2 })"
+                is-range
+                :attributes="calendarAttrs"
+                v-model="callendarOffdays"
+              />
+            </div>
+          </div>
           <div
             v-if="$store.state.authUser.grade == 'administrator'"
             class="col-md-12"
@@ -166,8 +178,16 @@
                   <i style="margin-left: 5px" class="fa fa-times"></i
                 ></a>
               </div>
-              <div v-if="provData.id && Object.keys(house.photos).length !== 0" class="col-12">
-                <img v-for="(photo, y) in house.photos" :key="y" :src="photo" class="thumbnail-img">
+              <div
+                v-if="provData.id && Object.keys(house.photos).length !== 0"
+                class="col-12"
+              >
+                <img
+                  v-for="(photo, y) in house.photos"
+                  :key="y"
+                  :src="photo"
+                  class="thumbnail-img"
+                />
               </div>
             </div>
           </div>
@@ -187,9 +207,15 @@
     </div>
     <div class="row mt-2">
       <div class="col-md-12">
-        <b-button v-if="provData.id" v-b-tooltip.hover title="Appuyez pour supprimer définitivement ce Bien" class="float-left" variant="danger" @click="showConfirmation()"
-            >Supprimer</b-button
-          >
+        <b-button
+          v-if="provData.id"
+          v-b-tooltip.hover
+          title="Appuyez pour supprimer définitivement ce Bien"
+          class="float-left"
+          variant="danger"
+          @click="showConfirmation()"
+          >Supprimer</b-button
+        >
       </div>
     </div>
     <Confirmation v-if="provData.id" @confirmation="delHouse" />
@@ -201,7 +227,6 @@ import Confirmation from '../../components/modals/Confirmation'
 import formUtils from '../../mixins/form-utils'
 import users from '../../mixins/users'
 import houses from '../../mixins/houses'
-
 
 export default {
   props: {
@@ -219,7 +244,8 @@ export default {
     },
   },
   components: {
-    BLoader, Confirmation
+    BLoader,
+    Confirmation,
   },
   mixins: [formUtils, users, houses],
   data() {
@@ -238,7 +264,7 @@ export default {
         photos: this.provData.photos ? this.provData.photos : {},
         user_id: this.$store.state.authUser.id,
         location: this.provData.location ? this.provData.location : '',
-        off_days: {},
+        off_days: this.provData.off_days ? this.provData.off_days : [],
       },
       disableForm: false,
       btnLoader: false,
@@ -251,6 +277,20 @@ export default {
       files: null,
       filesNames: [],
       formDisabled: false,
+      calendarAttrs: [
+        {
+          key: 'today',
+          dot: true,
+          dates: new Date(),
+          popover: {
+            label: "Aujourd'hui",
+          },
+        },
+      ],
+      callendarOffdays: {
+        start: null,
+        end: null,
+      },
     }
   },
   methods: {
@@ -316,7 +356,7 @@ export default {
               that.sendmail(
                 process.env.ADMINEMAIL,
                 `Nouveau bien`,
-                `Nouveau bien ajouter par ${that.$store.state.authUser.first_name} ${that.$store.state.authUser.last_name}`,
+                `Nouveau bien ajouter par ${that.$store.state.authUser.first_name} ${that.$store.state.authUser.last_name}`
               )
             }
             that.fileProgressBar.inProgress = false
@@ -411,10 +451,9 @@ export default {
         if (!this.provData.id) {
           this.$toast.success('Votre location a été créer avec succès.')
           this.resetForm()
-        }else{
+        } else {
           this.$toast.success('Bien modifier avec succès.')
         }
-        
       } else {
         this.btnLoader = false
         this.formDisabled = false
@@ -441,38 +480,53 @@ export default {
       this.files = null
       this.formDisabled = false
     },
-    showConfirmation(){
-      this.$bvModal.show('confirmation-modal');
+    showConfirmation() {
+      this.$bvModal.show('confirmation-modal')
     },
-    async delHouse(confirmation){
-
-    if (!confirmation) {
-      return
-    }
-      const result = await this.deleteHouse(this.provData.id);
+    async delHouse(confirmation) {
+      if (!confirmation) {
+        return
+      }
+      const result = await this.deleteHouse(this.provData.id)
 
       if (result) {
         this.$toast.success('Bien supprimer avec succès.')
         const that = this
-        setTimeout(()=>{
-          if(that.$store.state.authUser.grade == 'administrator'){
+        setTimeout(() => {
+          if (that.$store.state.authUser.grade == 'administrator') {
             that.$router.push('/admin/locations-lists')
-          }else{
+          } else {
             that.$router.push('/dashboard/locations-lists')
           }
         }, 600)
-      }else{
-        this.$toast.error('Une erreur est survenue. Veuillez réessayer plutard!')
+      } else {
+        this.$toast.error(
+          'Une erreur est survenue. Veuillez réessayer plutard!'
+        )
       }
+    },
+  },
+  created() {
+    if (Array.isArray(this.house.off_days) && this.house.off_days.length > 0) {
+      this.callendarOffdays.start = new Date(Math.min(...this.house.off_days) * 1000)
+      this.callendarOffdays.end = new Date(Math.max(...this.house.off_days) * 1000)
     }
+  },
+  watch: {
+    callendarOffdays() {
+      this.house.off_days = this.getDatesInRange(
+        this.callendarOffdays.start,
+        this.callendarOffdays.end
+      )
+    },
   },
 }
 </script>
 <style scoped>
-  img.thumbnail-img{
-    display: inline;
-    margin: 15px 7px;
-    width: 80px;
-    height: 80px;
-  }
+img.thumbnail-img {
+  display: inline;
+  margin: 15px 7px;
+  width: 80px;
+  height: 80px;
+}
 </style>

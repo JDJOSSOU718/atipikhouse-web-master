@@ -18,6 +18,7 @@
                         <ul class="quick-links">
                             <li><nuxt-link to="/cart">Panier</nuxt-link></li>
                             <li><nuxt-link to="/checkout">Caisse</nuxt-link></li>
+                            <li><nuxt-link to="/products">Les Biens</nuxt-link></li>
                             <li><nuxt-link to="/contact">Contactez-nous</nuxt-link></li>
                         </ul>
                     </div>
@@ -30,8 +31,8 @@
                         <ul class="information-links">
                             <li><nuxt-link to="/login">Connexion</nuxt-link></li>
                             <li><nuxt-link to="/signup">Inscription</nuxt-link></li>
-                            <li><nuxt-link to="/blog-one">Les Biens</nuxt-link></li>
-                            <li><nuxt-link to="/contact">ontactez-nous</nuxt-link></li>
+                            <li><nuxt-link to="/politique-de-confidentialite">Politique de confidentialité</nuxt-link></li>
+                            <li><nuxt-link to="/mentions-legales">Mentions légales</nuxt-link></li>
                         </ul>
                     </div>
                 </div>
@@ -41,10 +42,9 @@
                         <h3>Contact</h3>
 
                         <ul class="footer-contact-info">
-                            <li><i class="fas fa-map-marker-alt"></i> Location: 2750 Quadra Street Victoria, Canada</li>
-                            <li><i class="fas fa-phone"></i> Call Us: <a href="#">(+123) 456-7898</a></li>
-                            <li><i class="far fa-envelope"></i> Email Us: <a href="#">support@bolster.com</a></li>
-                            <li><i class="fas fa-fax"></i> Fax: <a href="#">+123456</a></li>
+                            <li><i class="fas fa-map-marker-alt"></i> Adresse: Rue Napoléon, 60350 Pierrefonds</li>
+                            <li><i class="fas fa-phone"></i> Téléphone: <a href="tel:(+123) 456-7898">(+123) 456-7898</a></li>
+                            <li><i class="far fa-envelope"></i> Email Us: <a href="mailto:atypikhouse@f2i-dev26-dj.fr">atypikhouse@f2i-dev26-dj.fr</a></li>
                         </ul>
                     </div>
                 </div>

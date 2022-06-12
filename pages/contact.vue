@@ -5,8 +5,8 @@
     <div class="page-title-area">
       <div class="container">
         <ul>
-          <li><nuxt-link to="/">Home</nuxt-link></li>
-          <li>Contact Us</li>
+          <li><nuxt-link to="/">Accueil</nuxt-link></li>
+          <li>Contactez-nous</li>
         </ul>
       </div>
     </div>
@@ -14,65 +14,50 @@
     <div class="contact-area ptb-60">
       <div class="container">
         <div class="section-title">
-          <h2><span class="dot"></span> Contact Us</h2>
+          <h2><span class="dot"></span> Contactez-nous</h2>
         </div>
 
         <div class="row">
           <div class="col-lg-5 col-md-12">
             <div class="contact-info">
-              <h3>Here to Help</h3>
+              <h3>Besoin d'aide?</h3>
               <p>
-                Have a question? You may find an answer in our FAQs. But you can
-                also contact us.
+                Vous avez une question ? Vous pouvez également nous contacter.
               </p>
 
               <ul class="contact-list">
                 <li>
-                  <i class="fas fa-map-marker-alt"></i> Location: 2750 Quadra
-                  Street Victoria, Canada
+                  <i class="fas fa-map-marker-alt"></i> Adresse: Rue Napoléon,
+                  60350 Pierrefonds
                 </li>
                 <li>
-                  <i class="fas fa-phone"></i> Call Us:
-                  <a href="#">(+123) 456-7898</a>
+                  <i class="fas fa-phone"></i> Téléphone:
+                  <a href="tel:(+123) 456-7898">(+123) 456-7898</a>
                 </li>
                 <li>
-                  <i class="far fa-envelope"></i> Email Us:
-                  <a href="#">support@comero.com</a>
+                  <i class="far fa-envelope"></i> Email:
+                  <a href="mailto:atypikhouse@f2i-dev26-dj.fr"
+                    >atypikhouse@f2i-dev26-dj.fr</a
+                  >
                 </li>
-                <li><i class="fas fa-fax"></i> Fax: <a href="#">+123456</a></li>
               </ul>
 
-              <h3>Opening Hours:</h3>
-              <ul class="opening-hours">
-                <li><span>Monday:</span> 8AM - 6AM</li>
-                <li><span>Tuesday:</span> 8AM - 6AM</li>
-                <li><span>Wednesday:</span> 8AM - 6AM</li>
-                <li><span>Thursday - Friday:</span> 8AM - 6AM</li>
-                <li><span>Sunday:</span> Closed</li>
-              </ul>
-
-              <h3>Follow Us:</h3>
+              <h3>Suivez-nous:</h3>
               <ul class="social">
                 <li>
-                  <a href="#"><i class="fab fa-facebook-f"></i></a>
+                  <a href="https://www.facebook.com/atypikhouse.2i"
+                    ><i class="fab fa-facebook-f"></i
+                  ></a>
                 </li>
                 <li>
-                  <a href="#"><i class="fab fa-twitter"></i></a>
+                  <a href="https://twitter.com/AtypikHouse2"
+                    ><i class="fab fa-twitter"></i
+                  ></a>
                 </li>
                 <li>
-                  <a href="#"><i class="fab fa-instagram"></i></a>
-                </li>
-                <li>
-                  <a href="#"><i class="fab fa-behance"></i></a>
-                </li>
-                <li>
-                  <a href="#"><i class="fab fa-skype"></i></a>
-                </li>
-                <li>
-                  <a href="#"><i class="fab fa-pinterest-p"></i></a>
-                </li>
-                <li>
-                  <a href="#"><i class="fab fa-youtube"></i></a>
+                  <a href="https://www.instagram.com/atypikhouse.2i/"
+                    ><i class="fab fa-instagram"></i
+                  ></a>
                 </li>
               </ul>
             </div>
@@ -80,71 +65,80 @@
 
           <div class="col-lg-7 col-md-12">
             <div class="contact-form">
-              <h3>Drop Us A Line</h3>
+              <h3>Envoyez-nous un message</h3>
               <p>
-                We’re happy to answer any questions you have or provide you with
-                an estimate. Just send us a message in the form below with any
-                questions you may have.
+                Nous serons heureux de répondre à vos questions et de vous
+                fournir un devis. un devis. Il suffit de nous envoyer un message
+                dans le formulaire ci-dessous avec les questions que vous
+                pourriez avoir.
               </p>
 
-              <form id="contactForm">
+              <form id="contactForm" @submit.prevent="contact">
+                <p v-if="formError" class="error">
+                  {{ formError }}
+                </p>
                 <div class="row">
                   <div class="col-lg-12 col-md-12">
                     <div class="form-group">
-                      <label>Name <span>(required)*</span></label>
+                      <label>Noms <span>(Requis)*</span></label>
                       <input
                         type="text"
                         name="name"
                         id="name"
                         class="form-control"
-                        placeholder="Enter your name"
+                        placeholder="Entrer votre noms"
+                        v-model="mailData.name"
                       />
                     </div>
                   </div>
 
                   <div class="col-lg-12 col-md-12">
                     <div class="form-group">
-                      <label>Email <span>(required)*</span></label>
+                      <label>Email <span>(Requis)*</span></label>
                       <input
                         type="email"
                         name="email"
                         id="email"
                         class="form-control"
-                        placeholder="Enter your Email Address"
+                        placeholder="Entrer votre email"
+                        v-model="mailData.email"
                       />
                     </div>
                   </div>
 
                   <div class="col-lg-12 col-md-12">
                     <div class="form-group">
-                      <label>Phone Number <span>(required)*</span></label>
+                      <label>Téléphone <span>(Requis)*</span></label>
                       <input
                         type="text"
                         name="phone_number"
                         id="phone_number"
                         class="form-control"
-                        placeholder="Enter your Phone Number"
+                        placeholder="Entrer votre téléphone"
+                        v-model="mailData.phone"
                       />
                     </div>
                   </div>
 
                   <div class="col-lg-12 col-md-12">
                     <div class="form-group">
-                      <label>Your Message <span>(required)*</span></label>
+                      <label>Message <span>(Requis)*</span></label>
                       <textarea
                         name="message"
                         id="message"
                         cols="30"
                         rows="8"
                         class="form-control"
-                        placeholder="Enter your Message"
+                        placeholder="Entrer votre message"
+                        v-model="mailData.message"
                       ></textarea>
                     </div>
                   </div>
 
                   <div class="col-lg-12 col-md-12">
                     <button type="submit" class="btn btn-primary">
-                      Send Message
+                      <span v-if="!btnLoader">S'inscrire</span
+                      ><BLoader v-else loaderColor="#fff" />
                     </button>
                   </div>
                 </div>
@@ -160,6 +154,9 @@
 <script>
 import TopHeader from '../layouts/TopHeader'
 import Menubar from '../layouts/Menubar'
+import formUtils from '../mixins/form-utils'
+import users from '../mixins/users'
+import BLoader from '../components/common/btnLoader.vue'
 
 export default {
   head() {
@@ -189,6 +186,78 @@ export default {
   components: {
     TopHeader,
     Menubar,
+    BLoader,
+  },
+  mixins: [formUtils, users],
+  data() {
+    return {
+      mailData: {
+        name: '',
+        phone: '',
+        email: '',
+        message: '',
+      },
+      btnLoader: false,
+      formError: null,
+    }
+  },
+  methods: {
+    async contact() {
+      this.formError = null
+      if (
+        !this.validateRequiredField(this.mailData.name) ||
+        !this.validateRequiredField(this.mailData.message)
+      ) {
+        this.formError = 'Veuillez renseigner tout les champs requis'
+        this.scrollToTop()
+        return
+      }
+
+      if (!this.validateEmail(this.mailData.email)) {
+        this.formError = 'Veuillez entrer une adresse email valide!'
+        this.scrollToTop()
+        return
+      }
+
+      if (!this.validatePhone(this.mailData.phone)) {
+        this.formError = 'Veuillez entrer un numero de téléphone valide'
+        this.scrollToTop()
+        return
+      }
+
+      this.btnLoader = true
+      const {success} = await this.sendmail(
+        process.env.ADMINEMAIL, `Message de ${this.mailData.name}`, ` Message envoyez depuis le formulaire de contact \n
+        Noms: ${this.mailData.name}\n
+        email: ${this.mailData.email}\n
+        Téléphone: ${this.mailData.phone}\n
+        Message:\n
+        ${this.mailData.message}
+        `,
+        'no-reply'
+      )
+
+      if(success){
+        this.resetForm();
+        this.btnLoader = false
+        this.$toast.success(
+          "Message envoyé avec succès"
+        )
+      }else{
+        this.btnLoader=false
+        this.$toast.error(
+          "Une erreur s'est produite lors de l'envoie veuillez réessayer ultérieurement"
+        )
+      }
+    },
+    resetForm(){
+      this.mailData = {
+        name: '',
+        phone: '',
+        email: '',
+        message: '',
+      }
+    }
   },
 }
 </script>
